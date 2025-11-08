@@ -14,12 +14,15 @@
   justify-content: space-between;
   align-items: center;
   padding: 15px 20px; 
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); 
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
   width: 100%; 
   z-index: 100; /* Ensure header is always on top */
 }
 
 /* 🏆 Site Title / Logo */
+.header-title {
+    flex-shrink: 1; /* Allows title to shrink if controls are wide */
+}
 .header-title h1 {
   font-size: 1.5rem; 
   margin: 0;
@@ -30,6 +33,13 @@
 }
 .header-title a {
     text-decoration: none; 
+}
+
+/* 💡 FIX 1: Group Controls to manage mobile spacing */
+.header-controls {
+    display: flex;
+    align-items: center;
+    gap: 10px; /* Space between language and hamburger */
 }
 
 /* 🌐 Language Switcher Styling */
@@ -64,7 +74,7 @@
   color: var(--accent-color); 
   padding: 5px;
   z-index: 1001; 
-  margin-left: 10px; 
+  margin-left: 0; /* Spacing handled by .header-controls gap */
 }
 
 /* --- Mobile Navigation Styling (Default: Hidden) --- */
@@ -77,15 +87,15 @@
   z-index: 1000;
   transition: transform 0.4s ease-in-out;
   
-  /* LTR Default: Pinned left, hidden by translating right */
+  /* LTR Default: Pinned left, hidden by translating left (out of view) */
   left: 0; 
   right: auto;
-  transform: translateX(-100%); /* Slides OFF-SCREEN LEFT by default */
+  transform: translateX(-100%); 
 }
 
 /* Mobile Navigation when Active (Slides in) */
 .header-nav.open {
-  transform: translateX(0); /* Slides ON-SCREEN (left to right for LTR) */
+  transform: translateX(0); /* Slides ON-SCREEN (visible) */
   display: block; 
 }
 
@@ -123,22 +133,24 @@
     padding: 20px 80px;
   }
   
-  /* Reset mobile fixed position */
+  /* Reset mobile fixed position and ensure controls are inline */
   .header-nav, .header-nav.open {
     display: block;
     position: static;
-    /* Reset transform for desktop */
     transform: none; 
-    left: auto; /* Ensure no fixed positioning remnants */
+    left: auto;
     right: auto;
-    width: auto;
-    height: auto;
     margin-left: auto; 
     padding: 0;
     background-color: transparent;
     box-shadow: none;
   }
 
+  .header-controls {
+      /* On desktop, controls should sit next to nav links */
+      gap: 30px; 
+  }
+  
   .header-nav ul {
     flex-direction: row; 
     gap: 30px; 
@@ -166,19 +178,18 @@
 }
 
 /* ---------------------------------------------------- */
-/* 🛑 DEFINITIVE RTL FIXES */
+/* 🛑 DEFINITIVE RTL FIXES for Hamburger Menu */
 /* ---------------------------------------------------- */
 
-/* 1. HIDE STATE: When RTL is active, hide the menu by translating it left (off-screen) */
+/* 1. RTL POSITIONING: Pin to the right */
 [dir="rtl"] .header-nav {
-    /* Pin to the right */
     left: auto; 
     right: 0; 
     /* Hide the menu by translating it RIGHT (off-screen) */
     transform: translateX(100%);
 }
 
-/* 2. SHOW STATE: When RTL is active AND menu is open, translate it back to 0 (visible) */
+/* 2. RTL SHOW STATE: When menu is open, translate it back to 0 (visible) */
 [dir="rtl"] .header-nav.open {
     /* Slides ON-SCREEN (right to left for RTL) */
     transform: translateX(0);
