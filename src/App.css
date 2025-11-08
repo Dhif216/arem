@@ -1,0 +1,33 @@
+/* --- 1. Boilerplate Cleanup (REMOVED: max-width, margin: 0 auto, text-align: center) --- */
+#root {
+    /* We don't need styling here, as we rely on global index.css and component styles */
+    /* We keep #root defined but empty to override default Vite settings */
+}
+
+/* --- 2. Pattern Application (Apply to the main content wrapper) --- */
+.content {
+  /* 💡 REPLACE THIS URL with your actual image link */
+  background-image: url('https://static.vecteezy.com/system/resources/previews/012/526/388/non_2x/gold-islamic-pattern-on-black-background-islamic-ornament-persian-motiff-vector.jpg'); 
+  
+  background-repeat: no-repeat; 
+  background-size: cover; /* Adjust size for subtlety */
+  background-attachment: fixed;
+  background-color: var(--background-light); 
+  
+  position: relative; 
+  z-index: 0;
+  /* Use flex-grow to ensure main content pushes footer down */
+  flex-grow: 1; 
+  width: 100%; /* Ensure it spans the full width */
+  padding-bottom: 50px; /* Space above the footer */
+}
+
+/* --- 3. Optional: Boilerplate Animation/Logo Styles (Keep only if you plan to use them) --- */
+/* You can delete all logo, card, and animation styles if they aren't used */
+.logo {
+  height: 6em;
+  padding: 1.5em;
+  will-change: filter;
+  transition: filter 300ms;
+}
+/* ... rest of logo styles ... */

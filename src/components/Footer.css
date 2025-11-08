@@ -1,0 +1,118 @@
+/* Import global variables if not already accessible (good practice for component CSS) */
+:root {
+  --primary-color: #7B3F00; /* Richer Chocolate Brown */
+  --accent-color: #D4AF37; /* True Gold/Bronze */
+  --light-color: #FDFDFD;
+  --dark-color: #1A1A1A;
+}
+
+/* --- Footer Base Styles (Mobile-First Luxury) --- */
+.footer {
+  background-color: var(--dark-color); /* Deep, rich background */
+  color: #ccc; /* Soft white text */
+  padding: 40px 20px 10px; 
+  width: 100%;
+  margin-top: 50px; /* Push footer down for clean separation */
+  font-size: 0.95rem;
+}
+
+.footer-content {
+  display: flex;
+  flex-direction: column; /* Stacks sections vertically on mobile */
+  gap: 30px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.footer-section h3, .footer-section h4 {
+  color: var(--accent-color); /* Gold color for headers */
+  margin-bottom: 15px;
+  font-size: 1.2rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* Brand Section Slogan */
+.brand-section h3 {
+    font-size: 1.5rem;
+}
+.brand-section .slogan {
+    color: #aaa;
+    font-weight: 300;
+}
+
+/* Nav & Contact Text */
+.footer-section p, .footer-section a, .footer-section li {
+  line-height: 1.7;
+}
+
+/* Nav Links Styling */
+.nav-section ul {
+  list-style: none;
+  padding: 0;
+}
+
+.nav-section a {
+  color: #ccc;
+  text-decoration: none;
+  transition: color 0.3s;
+}
+
+.nav-section a:hover {
+  color: var(--accent-color); /* Gold hover effect */
+}
+
+/* Social Icons */
+.social-icons {
+  display: flex;
+  gap: 15px;
+  margin-top: 15px;
+}
+
+.icon-placeholder {
+  display: inline-flex;
+  width: 35px; /* Slightly larger icons */
+  height: 35px;
+  background-color: var(--accent-color); /* Gold background */
+  color: var(--dark-color); /* Dark text on gold */
+  border-radius: 50%;
+  align-items: center;
+  justify-content: center;
+  font-weight: 800;
+  font-size: 0.9rem;
+  transition: transform 0.3s;
+}
+.icon-placeholder:hover {
+    transform: translateY(-3px) scale(1.1);
+}
+
+/* Footer Bottom Section (Copyright) */
+.footer-bottom {
+  text-align: center;
+  margin-top: 40px;
+  padding-top: 20px;
+  border-top: 1px solid #444; /* Subtle separator */
+}
+
+.footer-bottom p {
+  font-size: 0.85rem;
+  color: #888;
+}
+
+/* --- Desktop Overrides --- */
+@media (min-width: 768px) {
+  .footer-content {
+    flex-direction: row; /* Layout sections horizontally */
+    justify-content: space-between;
+    padding: 0 40px;
+  }
+}
+
+/* RTL Adjustments for elegance */
+[dir="rtl"] .footer-section h3,
+[dir="rtl"] .footer-section h4,
+[dir="rtl"] .footer-section p,
+[dir="rtl"] .footer-section li {
+    text-align: right;
+}

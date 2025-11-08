@@ -1,0 +1,67 @@
+/* 1. FONT IMPORTS (MUST BE AT THE TOP) */
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;700;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Almarai:wght@400;700;800&display=swap');
+
+/* 2. GLOBAL RESET AND BOX SIZING */
+* {
+  box-sizing: border-box;
+}
+
+/* 3. LUXURY COLOR AND FONT VARIABLES */
+:root {
+  --primary-color: #7B3F00; /* Richer Chocolate Brown for brand accents */
+  --accent-color: #D4AF37; /* True Gold/Bronze for luxury contrast */
+  --text-color: #333333; /* Dark text for readability */
+  --background-light: #FDFDFD; /* Near-white cream background */
+  --background-gray: #ffffff;
+  --dark-color: #000000; /* Deepest black for headers */
+}
+
+/* 4. BASE BODY STYLES */
+body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  min-height: 100vh;
+  /* Apply clean Latin font as default */
+  font-family: 'Montserrat', sans-serif; 
+  font-size: 16px;
+  color: var(--text-color);
+  background-color: var(--background-gray);
+  line-height: 1.6;
+}
+
+/* 5. TYPOGRAPHY HIERARCHY (Premium Feel) */
+h1, h2, h3, h4 {
+  color: var(--dark-color);
+  line-height: 1.2;
+  margin-top: 0.5em;
+  margin-bottom: 0.5em;
+}
+
+h1 { font-weight: 900; }
+h2 { font-weight: 700; }
+h3 { font-weight: 600; }
+
+/* 6. LINKS AND INTERACTIONS */
+a {
+  color: var(--primary-color);
+  text-decoration: none;
+  transition: color 0.3s;
+}
+a:hover {
+  color: var(--accent-color);
+}
+
+/* 7. RTL/ARABIC FONT APPLICATION (Crucial for Luxury Look) */
+html[dir="rtl"], body[dir="rtl"] {
+  /* Apply the modern, elegant Almarai font for Arabic text */
+  font-family: 'Almarai', 'Montserrat', sans-serif;
+  line-height: 1.8; /* Increased line height for better Arabic readability */
+}
+
+/* Ensure the main content area utilizes all space */
+.content {
+  min-height: calc(100vh - 200px); /* Adjust 200px based on actual header/footer heights */
+  padding-bottom: 50px; /* Space above the footer */
+}

@@ -1,0 +1,260 @@
+/* --- Global Variables Reference (Ensures consistency with index.css) --- */
+:root {
+  --primary-color: #7B3F00; /* Richer Chocolate Brown */
+  --accent-color: #D4AF37; /* True Gold/Bronze */
+  --text-color: #333333; 
+  --background-light: #FDFDFD;
+  --background-gray: #f8f8f8;
+  --dark-color: #1A1A1A;
+}
+
+/* --- Hero Section Styling --- */
+.hero-section {
+  position: relative;
+  height: 50vh; /* Mobile height */
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  color: white; 
+}
+
+/* Video Background Styles */
+.hero-video-background {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    min-width: 100%;
+    min-height: 100%;
+    transform: translate(-50%, -50%); 
+    width: auto;
+    height: auto;
+    z-index: 1; 
+    object-fit: cover; 
+}
+
+/* Video Overlay for Readability */
+.hero-section::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    /* Deep gradient overlay for luxury and contrast */
+    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.7)); 
+    z-index: 1.5; 
+}
+
+.hero-content {
+  position: relative;
+  z-index: 2; /* Content sits above video and overlay */
+  padding: 20px;
+  max-width: 90%;
+}
+
+.hero-content h1 {
+  font-size: 2rem;
+  font-weight: 800;
+  margin-bottom: 10px;
+  /* Subtle gold glow on the text */
+  text-shadow: 0 0 10px var(--accent-color); 
+}
+
+.slogan-text {
+  font-size: 1rem;
+  font-weight: 300;
+  margin-bottom: 20px;
+}
+
+/* Call to Action Button */
+.cta-button {
+  display: inline-block;
+  background-color: var(--accent-color); 
+  color: var(--dark-color);
+  text-decoration: none;
+  padding: 14px 30px; 
+  border-radius: 5px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  transition: background-color 0.3s, transform 0.3s;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4); 
+}
+
+.cta-button:hover {
+  background-color: #e0b000;
+  transform: translateY(-2px) scale(1.05);
+}
+
+/* --- Featured Products Section --- */
+.featured-products {
+  padding: 40px 20px;
+  text-align: center;
+  background-color: var(--background-gray); 
+}
+
+.featured-products h2 {
+  font-size: 1.8rem;
+  color: var(--primary-color);
+  margin-bottom: 30px;
+  text-transform: uppercase;
+}
+
+/* Mobile Product Grid: Stacked */
+.product-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+.product-card {
+  background-color: var(--background-light);
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); 
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.product-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+}
+
+.product-image {
+    height: 200px;
+    background-color: #eee;
+    margin-bottom: 15px;
+    border-radius: 4px;
+    background: url('/assets/sweet-placeholder.jpg') center/cover no-repeat;
+}
+
+.product-card h3 {
+    color: var(--dark-color);
+    margin-bottom: 10px;
+}
+
+.description {
+    color: var(--text-color);
+    font-size: 0.95rem;
+    margin-bottom: 15px;
+}
+
+.product-link {
+    color: var(--accent-color);
+    font-weight: 700;
+    text-decoration: none;
+    display: inline-block;
+    border-bottom: 2px solid var(--accent-color);
+}
+
+/* ---------------------------------------------------- */
+/* 💡 NEW: SERVICE EXPLANATION SECTION STYLES */
+/* ---------------------------------------------------- */
+
+.service-explanation {
+    padding: 60px 20px;
+    background-color: var(--background-light);
+    text-align: center;
+}
+
+.service-explanation h2 {
+    font-size: 2rem;
+    color: var(--primary-color);
+    margin-bottom: 40px;
+}
+
+.service-steps {
+    display: flex;
+    flex-direction: column; /* Stacks on mobile */
+    gap: 30px;
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.step-card {
+    padding: 25px;
+    border-radius: 10px;
+    background-color: white;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+    border: 1px solid #eee;
+    transition: box-shadow 0.3s;
+}
+
+.step-card:hover {
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+}
+
+.step-icon {
+    font-size: 2.8rem; 
+    color: var(--accent-color); /* Gold accent */
+    margin-bottom: 15px;
+    font-weight: 800;
+}
+
+.step-card h3 {
+    color: var(--dark-color);
+    font-size: 1.3rem;
+    margin-bottom: 10px;
+}
+
+.step-card p {
+    color: #555;
+    font-size: 1rem;
+}
+
+
+/* --- Desktop Overrides (Start of Media Query) --- */
+@media (min-width: 768px) {
+  .hero-section {
+    height: 70vh;
+  }
+  
+  .hero-content h1 {
+    font-size: 3.5rem;
+    max-width: 800px;
+  }
+  
+  .slogan-text {
+    font-size: 1.2rem;
+  }
+  
+  .featured-products {
+      padding: 60px 80px;
+  }
+  
+  /* Desktop Product Grid: 3 columns */
+  .product-grid {
+    flex-direction: row;
+    justify-content: center;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  
+  .product-card {
+      flex: 1; 
+      max-width: 300px;
+  }
+  
+  /* Desktop Service Steps: Side-by-Side */
+  .service-steps {
+      flex-direction: row; 
+      justify-content: space-between;
+  }
+
+  .step-card {
+      flex: 1;
+      margin: 0 15px;
+  }
+}
+
+/* --- RTL Adjustment (Home page alignment flip) --- */
+[dir="rtl"] .hero-content h1, 
+[dir="rtl"] .slogan-text, 
+[dir="rtl"] .featured-products h2,
+[dir="rtl"] .service-explanation h2,
+[dir="rtl"] .step-card {
+    text-align: right; 
+}
