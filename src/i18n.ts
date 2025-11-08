@@ -27,7 +27,7 @@ i18n
       caches: ['cookie', 'localStorage'],
     },
 
-    // 🛑 CRITICAL FIX: Add the sub-directory '/arem/' to the loadPath
+    // 🛑 CRITICAL FIX: The repository sub-path is added here for GitHub Pages.
     backend: {
         loadPath: '/arem/locales/{{lng}}/{{ns}}.json', // <-- CORRECTED PATH
     },

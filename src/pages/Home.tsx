@@ -8,10 +8,12 @@ const Home: React.FC = () => {
 
   // Defined External and Public Paths
   const AssetUrls = {
-    // 💡 Local public path for the video (requires ad.mp4 in public/ folder)
-    adVideo: '/ad.mp4', 
+    // 🛑 FIX: The local video path MUST include the GitHub Pages repository name.
+    adVideo: '/arem/ad.mp4', 
+    
     // External placeholder for poster (replace with your actual URL)
     heroPoster: 'https://i.redd.it/our-eid-pastries-look-very-aesthetically-pleasing-i-gotta-v0-o4bq1ovhfsw81.jpg?width=700&format=pjpg&auto=webp&s=6cd456d5826614c6655cf6c728370c9910773159', 
+    
     // External Image URLs for featured products
     kaakWarka: 'https://patisseriemasmoudi.fr/cdn/shop/products/Kaak-Warka_a41870b1-855c-4586-870e-7a0ba791cdb4_750x810.png?v=1757070977',
     baklawa: 'https://images.unsplash.com/photo-1617806501553-d3a6a3a7b227?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8YmFrbGF2YXxlbnwwfHwwfHx8MA%3D%3D&fm=jpg&q=60&w=3000',
@@ -76,7 +78,7 @@ const Home: React.FC = () => {
         </div>
       </section>
       
-      {/* 3. 💡 RESTORED: Service Explanation Section */}
+      {/* 3. Service Explanation Section */}
       <section className="service-explanation">
         <h2>{t('service.heading')}</h2>
         <div className="service-steps">

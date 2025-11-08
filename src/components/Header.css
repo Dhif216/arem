@@ -24,15 +24,15 @@
 
 /* 🏆 Site Title / Logo */
 .header-title h1 {
-  font-size: 1.5rem; /* Slightly larger mobile font */
+  font-size: 1.5rem; 
   margin: 0;
-  font-weight: 900; /* Extra bold for impact */
-  color: var(--accent-color); /* Gold color for luxury */
-  letter-spacing: 1px; /* Spacing for elegance */
+  font-weight: 900; 
+  color: var(--accent-color); 
+  letter-spacing: 1px; 
   text-transform: uppercase;
 }
 .header-title a {
-    text-decoration: none; /* Remove underline from Link */
+    text-decoration: none; 
 }
 
 /* 🌐 Language Switcher Styling */
@@ -43,9 +43,9 @@
 
 .lang-button {
   background: none;
-  border: 1px solid var(--accent-color); /* Gold border */
+  border: 1px solid var(--accent-color); 
   color: var(--light-color);
-  padding: 4px 8px; /* Slightly smaller for mobile */
+  padding: 4px 8px; 
   cursor: pointer;
   font-size: 0.8rem;
   border-radius: 4px;
@@ -54,7 +54,7 @@
 
 .lang-button.active {
   background-color: var(--accent-color);
-  color: var(--dark-color); /* Dark text on gold button */
+  color: var(--dark-color); 
   border-color: var(--accent-color);
   font-weight: 700;
 }
@@ -66,38 +66,37 @@
   border: none;
   font-size: 2rem;
   cursor: pointer;
-  color: var(--accent-color); /* Gold icon */
+  color: var(--accent-color); 
   padding: 5px;
   z-index: 1001; 
-  margin-left: 10px; /* Space between language and hamburger */
+  margin-left: 10px; 
 }
 
 /* --- Mobile Navigation Styling (Default: Hidden) --- */
 .header-nav {
-  /* Menu should overlay the screen when open */
-  position: fixed; /* Use fixed for full viewport height */
+  position: fixed; 
   top: 0;
   left: 0;
   width: 100%;
   height: 100vh;
-  background-color: rgba(45, 30, 30, 0.95); /* Semi-transparent dark overlay */
+  background-color: rgba(45, 30, 30, 0.95);
   z-index: 1000;
-  /* Hide the menu by default */
+  /* Default hidden state for LTR (Slides out to the right) */
   transform: translateX(100%);
   transition: transform 0.4s ease-in-out;
 }
 
 /* Mobile Navigation when Active (Slides in) */
 .header-nav.open {
-  transform: translateX(0); /* Slide the menu in from the right */
-  display: block; /* Ensure block display */
+  transform: translateX(0); /* Slides to 0 (visible) */
+  display: block; 
 }
 
 .header-nav ul {
   list-style: none;
   display: flex;
   flex-direction: column; 
-  padding: 100px 0 0 0; /* Push links down below the header area */
+  padding: 100px 0 0 0; 
   text-align: center;
 }
 
@@ -117,7 +116,7 @@
 }
 
 .header-nav ul li a:hover {
-  background-color: var(--primary-color); /* Brown hover effect */
+  background-color: var(--primary-color); 
   color: var(--light-color);
 }
 
@@ -135,7 +134,7 @@
     box-shadow: none;
     width: auto;
     height: auto;
-    transform: none; /* Remove translation */
+    transform: none; 
     margin-left: auto; 
     padding: 0;
   }
@@ -157,7 +156,7 @@
   }
   
   .header-nav ul li a:hover {
-      color: var(--accent-color); /* Gold text hover */
+      color: var(--accent-color); 
       background-color: transparent;
   }
   
@@ -166,17 +165,22 @@
   }
 }
 
-/* RTL Adjustments for elegance (Optional, but good practice) */
-[dir="rtl"] .header-nav.open {
-    /* If RTL, the menu should slide in from the left */
-    transform: translateX(-100%);
-}
+/* ---------------------------------------------------- */
+/* 🛑 FIXES: RTL Adjustments for Hamburger Menu */
+/* ---------------------------------------------------- */
+
+/* 1. HIDE STATE: When RTL is active, hide the menu by translating it left (-100%) */
 [dir="rtl"] .header-nav {
-    /* Base hidden state for RTL */
     transform: translateX(-100%);
 }
+
+/* 2. SHOW STATE: When RTL is active AND menu is open, translate it back to 0 (visible) */
+[dir="rtl"] .header-nav.open {
+    transform: translateX(0);
+}
+
+/* 3. LOGO ALIGNMENT: Ensure logo aligns correctly in the header flow */
 [dir="rtl"] .header-title {
-    /* Ensure title aligns left in the header flow */
     margin-right: 0;
     margin-left: auto;
 }
