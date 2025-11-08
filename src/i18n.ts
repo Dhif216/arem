@@ -27,9 +27,9 @@ i18n
       caches: ['cookie', 'localStorage'],
     },
 
-    // Configuration for the backend to load translation files
+    // 🛑 CRITICAL FIX: Add the sub-directory '/arem/' to the loadPath
     backend: {
-        loadPath: '/locales/{{lng}}/{{ns}}.json',
+        loadPath: '/arem/locales/{{lng}}/{{ns}}.json', // <-- CORRECTED PATH
     },
 
     // React-i18next configuration (important for Suspense)
