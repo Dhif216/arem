@@ -1,0 +1,70 @@
+{
+  "site": {
+    "title": "Pâtisserie Tunisienne",
+    "welcome_message": "Bienvenue chez vos experts en douceurs tunisiennes !"
+  },
+  "nav": {
+    "home": "Accueil",
+    "products": "Nos Produits",
+    "contact": "Contactez-nous",
+    "language": "Langue"
+  },
+  "footer": {
+    "slogan": "Votre dose quotidienne de délice tunisien.",
+    "address": "Adresse",
+    "phone": "Téléphone",
+    "email": "Email",
+    "hours_label": "Horaires",
+    "hours_value": "Lun-Sam: 8h00 - 18h00",
+    "follow_us": "Suivez-nous",
+    "copyright": "Tous droits réservés."
+  },
+  "home": {
+    "view_products_cta": "Découvrez nos Douceurs",
+    "featured_heading": "Nos Incontournables",
+    "baklawa_desc": "Couches de pâte filo, noix hachées et sirop de miel, une richesse incomparable.",
+    "makroudh_desc": "Gâteau de semoule fourré aux dattes, frit et baigné de miel, un classique.",
+    "kaak_desc": "Petits gâteaux secs traditionnels aux graines de sésame et anis.",
+    "discover_cta": "Découvrir"
+  },
+  "categories": {
+    "all": "Toutes les Douceurs",
+    "honeyed": "Miel & Sirop",
+    "dry": "Gâteaux Secs",
+    "seasonal": "Saisonnier"
+  },
+  "products": {
+    "price_unit": "DT/Kg",
+    "product_baklawa_name": "Baklawa",
+    "product_baklawa_desc": "Pâte filo riche en amandes et noix, trempée dans un miel de qualité.",
+    "product_makroudh_name": "Makroudh",
+    "product_makroudh_desc": "Semoule aux dattes, frit à la perfection puis baigné de sirop parfumé.",
+    "product_kaak_warka_name": "Ka'ak Warka",
+    "product_kaak_warka_desc": "Anneaux délicats à base de farine de blé, parfumés à la fleur d'oranger.",
+    "product_ghraiba_name": "Ghraiba",
+    "product_ghraiba_desc": "Sablés fondants à base de semoule ou de pois chiches, légers et parfumés.",
+    "product_samsa_name": "Samsa",
+    "product_samsa_desc": "Feuille de brick fourrée aux noisettes et amandes, pliée en triangle et enrobée de sirop."
+  },
+  "service": {
+    "heading": "Comment ça Marche ?",
+    "step1_title": "Passez Votre Commande",
+    "step1_desc": "Choisissez vos douceurs en ligne. Commandez par téléphone ou via le formulaire de contact.",
+    "step2_title": "Livraison Rapide et Locale",
+    "step2_desc": "Nous livrons directement à Sousse. Les livraisons plus éloignées peuvent être arrangées par téléphone.",
+    "step3_title": "Paiement à la Livraison",
+    "step3_desc": "Le paiement s'effectue uniquement en espèces à la réception de votre commande."
+  },
+  "contact": {
+    "sub_heading": "Nous serions ravis de répondre à toutes vos questions concernant nos produits et vos commandes spéciales.",
+    "form_title": "Envoyez-nous un Message",
+    "form_name_label": "Nom Complet",
+    "form_email_label": "Adresse Email",
+    "form_message_label": "Votre Message",
+    "form_submit_button": "Envoyer",
+    "form_submission_alert": "Votre message a été envoyé !",
+    "info_title": "Informations Utiles",
+    "map_placeholder_text": "Localisation de la boutique (Carte Google Maps)."
+  },
+  "loading_text": "Chargement..." 
+}
