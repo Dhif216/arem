@@ -9,9 +9,11 @@ const Home: React.FC = () => {
   // Defined External and Public Paths
   const base = import.meta.env.BASE_URL || '/';
   const AssetUrls = {
-    // Place your video files in public/media: public/media/hero.webm and/or public/media/hero.mp4
-    heroVideoWebm: `${base}media/hero.webm`,
-    heroVideoMp4: `${base}media/hero.mp4`,
+    // Preferred location: commit your file at public/media/ad.mp4 so it gets deployed on every build
+    heroVideoWebm: `${base}media/ad.webm`,
+    heroVideoMp4: `${base}media/ad.mp4`,
+    // Temporary fallback if you manually uploaded to gh-pages root via the web UI
+    heroVideoRootMp4: `${base}ad.mp4`,
 
     // External placeholder for poster (replace with your actual URL)
     heroPoster: 'https://i.redd.it/our-eid-pastries-look-very-aesthetically-pleasing-i-gotta-v0-o4bq1ovhfsw81.jpg?width=700&format=pjpg&auto=webp&s=6cd456d5826614c6655cf6c728370c9910773159', 
@@ -33,11 +35,13 @@ const Home: React.FC = () => {
           loop 
           muted 
           playsInline
+          preload="metadata"
           poster={AssetUrls.heroPoster} 
         >
-          {/* Try WebM first, then MP4 as fallback */}
+          {/* Try WebM first, then MP4 from /public/media, then a last-chance root /ad.mp4 */}
           <source src={AssetUrls.heroVideoWebm} type="video/webm" />
           <source src={AssetUrls.heroVideoMp4} type="video/mp4" />
+          <source src={AssetUrls.heroVideoRootMp4} type="video/mp4" />
           {/* If neither source is available, the poster image will be shown */}
         </video>
 

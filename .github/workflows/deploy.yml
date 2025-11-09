@@ -32,6 +32,12 @@ jobs:
       - name: Copy locales to dist
         run: cp -r public/locales dist/
 
+      - name: Copy media to dist (if exists)
+        run: |
+          if [ -d public/media ]; then
+            cp -r public/media dist/
+          fi
+
       - name: Configure custom domain
         run: echo "sweetchebbi.com" > ./dist/CNAME
 
