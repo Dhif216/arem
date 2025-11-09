@@ -27,6 +27,7 @@
     "kaak_desc": "Petits gâteaux secs traditionnels aux graines de sésame et anis.",
     "discover_cta": "Découvrir"
   },
+  
   "categories": {
     "all": "Toutes les Douceurs",
     "honeyed": "Miel & Sirop",
@@ -35,6 +36,9 @@
     "seasonal": "Saisonnier"
   },
   "products": {
+    "order_whatsapp": "Commander sur WhatsApp",
+    "order_whatsapp_message": "Bonjour, je souhaite commander",
+    "contact_cta": "Contactez-nous",
     "price_unit": "DT/Kg",
     "price_label": "Prix",
     "category_label": "Catégorie",
