@@ -135,11 +135,18 @@
 }
 
 .product-image {
-    height: 200px;
-    background-color: #eee;
-    margin-bottom: 15px;
-    border-radius: 4px;
-    background: url('/assets/sweet-placeholder.jpg') center/cover no-repeat;
+  height: 200px;
+  background-color: #eee;
+  margin-bottom: 15px;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.product-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
 }
 
 .product-card h3 {

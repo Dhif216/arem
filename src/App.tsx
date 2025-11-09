@@ -16,9 +16,10 @@ const LazyContact = lazy(() => import('./pages/Contact'));
 
 // 3. Import global CSS
 import './App.css'; 
+import Skeleton from './components/Skeleton';
 
 const App: React.FC = () => {
-  const { t, i18n } = useTranslation(); 
+  const { i18n } = useTranslation(); 
   
   // 4. RTL and Language Setting Logic
   useEffect(() => {
@@ -32,9 +33,19 @@ const App: React.FC = () => {
 
   // Define a simple loading component using a translated key
   const LoadingFallback = (
-    <div style={{ padding: '20px', textAlign: 'center' }}>
-      {/* Fetches 'loading_text' from JSON files */}
-      <h2>{t('loading_text') || 'Loading Page...'}</h2>
+    <div style={{ padding: '30px', maxWidth: 900, margin: '0 auto' }}>
+      <div style={{ display: 'grid', gap: '20px' }}>
+        <Skeleton height={40} />
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px,1fr))', gap: 20 }}>
+          {Array.from({ length: 6 }).map((_, i) => (
+            <div key={i} style={{ padding: 12, border: '1px solid #eee', borderRadius: 8 }}>
+              <Skeleton height={160} />
+              <Skeleton height={20} marginTop={10} />
+              <Skeleton height={14} marginTop={6} />
+            </div>
+          ))}
+        </div>
+      </div>
     </div>
   );
 

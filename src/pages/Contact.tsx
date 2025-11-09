@@ -86,30 +86,30 @@ const Contact: React.FC = () => {
         {/* Contact Form */}
         <section className="contact-form-section">
           <h2>{t('contact.form_title')}</h2>
-          <form onSubmit={handleSubmit} className="contact-form">
+          <form onSubmit={handleSubmit} className="contact-form" aria-label={t('contact.form_title')}>
             
             <div className="form-group">
               <label htmlFor="name">{t('contact.form_name_label')}</label>
-              <input type="text" id="name" name="name" value={formData.name} onChange={handleChange} required />
+              <input type="text" id="name" name="name" value={formData.name} onChange={handleChange} required aria-required="true" />
             </div>
 
             <div className="form-group">
               <label htmlFor="email">{t('contact.form_email_optional_label') || t('contact.form_email_label')}</label>
-              <input type="email" id="email" name="email" value={formData.email} onChange={handleChange} />
+              <input type="email" id="email" name="name" value={formData.email} onChange={handleChange} aria-required="false" />
             </div>
 
             <div className="form-group">
               <label htmlFor="address">
                 {t('contact.form_address_label') || (currentLang === 'tn' ? 'العنوان' : 'Adresse de Livraison')}
               </label>
-              <input type="text" id="address" name="address" value={formData.address} onChange={handleChange} required />
+               <input type="text" id="address" name="address" value={formData.address} onChange={handleChange} required aria-required="true" />
             </div>
 
             <div className="form-group">
               <label htmlFor="product">
                 {t('contact.form_product_label') || (currentLang === 'tn' ? 'اختر المنتج' : 'Choisissez un Produit')}
               </label>
-              <select id="product" name="product" value={formData.product} onChange={handleChange}>
+               <select id="product" name="product" value={formData.product} onChange={handleChange} aria-required="true">
                 {products.map((p) => (
                   <option key={p.name} value={currentLang === 'tn' ? p.name_tn : p.name}>
                     {currentLang === 'tn' ? p.name_tn : p.name} - {p.price} TND
@@ -120,7 +120,7 @@ const Contact: React.FC = () => {
 
             <div className="form-group">
               <label htmlFor="message">{t('contact.form_message_label')}</label>
-              <textarea id="message" name="message" rows={5} value={formData.message} onChange={handleChange}></textarea>
+               <textarea id="message" name="message" rows={5} value={formData.message} onChange={handleChange} aria-required="false"></textarea>
             </div>
 
             <button type="submit" className="submit-button">

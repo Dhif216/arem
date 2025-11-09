@@ -91,7 +91,9 @@ const Home: React.FC = () => {
           
           {/* Product Card 1: Ka'ak Warka */}
           <div className="product-card">
-            <div className="product-image" style={{backgroundImage: `url(${AssetUrls.kaakWarka})`}}></div>
+            <div className="product-image">
+              <img src={AssetUrls.kaakWarka} alt={t('products.product_kaak_warka_name')} loading="lazy" />
+            </div>
             <h3>{t('products.product_kaak_warka_name')}</h3>
             <p className="description">{t('products.product_kaak_warka_desc')}</p>
             <Link to="/products/kaak-warka" className="product-link">{t('home.discover_cta')}</Link>
@@ -99,7 +101,9 @@ const Home: React.FC = () => {
           
           {/* Product Card 2: Baklawa */}
           <div className="product-card">
-            <div className="product-image" style={{backgroundImage: `url(${AssetUrls.baklawa})`}}></div>
+            <div className="product-image">
+              <img src={AssetUrls.baklawa} alt={t('products.product_baklawa_name')} loading="lazy" />
+            </div>
             <h3>{t('products.product_baklawa_name')}</h3>
             <p className="description">{t('products.product_baklawa_desc')}</p>
             <Link to="/products/baklawa" className="product-link">{t('home.discover_cta')}</Link>
@@ -107,7 +111,9 @@ const Home: React.FC = () => {
           
           {/* Product Card 3: Makroudh */}
           <div className="product-card">
-            <div className="product-image" style={{backgroundImage: `url(${AssetUrls.makroudh})`}}></div>
+            <div className="product-image">
+              <img src={AssetUrls.makroudh} alt={t('products.product_makroudh_name')} loading="lazy" />
+            </div>
             <h3>{t('products.product_makroudh_name')}</h3>
             <p className="description">{t('products.product_makroudh_desc')}</p>
             <Link to="/products/makroudh" className="product-link">{t('home.discover_cta')}</Link>

@@ -24,10 +24,21 @@ const ProductDetail: React.FC = () => {
 
   return (
     <div className="products-page">
+      {/* Breadcrumbs */}
+      <nav aria-label="breadcrumb" style={{ padding: '20px 0 10px', fontSize: '14px' }}>
+        <Link to="/" style={{ color: '#f9c74f', textDecoration: 'none' }}>{t('nav.home', 'Home')}</Link>
+        {' > '}
+        <Link to="/products" style={{ color: '#f9c74f', textDecoration: 'none' }}>{t('nav.products')}</Link>
+        {' > '}
+        <span style={{ color: '#666' }}>{t(`products.${product.nameKey}`)}</span>
+      </nav>
+
       <h1 className="page-heading">{t(`products.${product.nameKey}`)}</h1>
 
       <div className="product-detail">
-        <div className="product-detail-image" style={{ backgroundImage: `url(${product.image})` }} />
+        <div className="product-detail-image">
+          <img src={product.image} alt={t(`products.${product.nameKey}`)} loading="lazy" />
+        </div>
         <div className="product-detail-content">
           <h2>{t(`products.${product.nameKey}`)}</h2>
           <p className="description">{t(`products.${product.descriptionKey}`)}</p>
@@ -54,6 +65,31 @@ const ProductDetail: React.FC = () => {
           </div>
         </div>
       </div>
+
+      {/* Structured Data: Product */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            '@context': 'https://schema.org',
+            '@type': 'Product',
+            name: t(`products.${product.nameKey}`),
+            description: t(`products.${product.descriptionKey}`),
+            image: [product.image],
+            brand: {
+              '@type': 'Brand',
+              name: 'حلويات شابي',
+            },
+            offers: {
+              '@type': 'Offer',
+              priceCurrency: 'TND',
+              price: product.price.toFixed(2),
+              availability: 'https://schema.org/InStock',
+              url: `https://sweetchebbi.com/products/${product.slug}`,
+            },
+          }),
+        }}
+      />
     </div>
   );
 };

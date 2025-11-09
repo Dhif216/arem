@@ -18,10 +18,9 @@ const Products: React.FC = () => {
 
   const ProductCard: React.FC<{ product: Product }> = ({ product }) => (
     <div className="product-listing-card">
-      <div
-        className="card-image"
-        style={{ backgroundImage: `url(${product.image})` }} // ✅ Use image URL directly
-      ></div>
+      <div className="card-image">
+        <img src={product.image} alt={t(`products.${product.nameKey}`)} loading="lazy" />
+      </div>
       <div className="card-content">
         <h3>{t(`products.${product.nameKey}`)}</h3>
         <p className="price">{product.price.toFixed(2)} {t('products.price_unit')}</p>

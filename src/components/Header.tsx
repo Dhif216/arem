@@ -60,6 +60,7 @@ const Header: React.FC = () => {
         onClick={toggleMenu}
         aria-expanded={isMenuOpen}
         aria-controls="mobile-nav"
+        aria-label={isMenuOpen ? t('nav.close_menu', 'Close menu') : t('nav.open_menu', 'Open menu')}
       >
         {isMenuOpen ? '✕' : '☰'} 
       </button>
