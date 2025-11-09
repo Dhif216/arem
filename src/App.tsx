@@ -6,6 +6,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 // 2. Import ALL structural components
 import Header from './components/Header';
 import Footer from './components/Footer';
+import FloatingWhatsApp from './components/FloatingWhatsApp';
 import Home from './pages/Home'; // Home page loads immediately
 
 // 💡 CODE SPLITTING: Dynamically import non-critical pages
@@ -64,6 +65,7 @@ const App: React.FC = () => {
       </main>
       
       <Footer /> 
+      <FloatingWhatsApp />
     </Router>
   );
 };

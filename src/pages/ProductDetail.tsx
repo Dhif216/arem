@@ -37,6 +37,18 @@ const ProductDetail: React.FC = () => {
             <div><strong>{t('products.price_label') || 'Price'}:</strong> {product.price.toFixed(2)} {t('products.price_unit')}</div>
           </div>
 
+          <div style={{ display: 'flex', gap: 12, flexWrap: 'wrap', marginTop: 16 }}>
+            <a
+              className="order-wa"
+              href={`https://wa.me/21654477309?text=${encodeURIComponent(`${t('products.order_whatsapp_message', 'Bonjour, je souhaite commander')}: ${t(`products.${product.nameKey}`)} (${product.price.toFixed(2)} ${t('products.price_unit')})`)}`}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              {t('products.order_whatsapp', 'Commander sur WhatsApp')}
+            </a>
+            <Link to="/contact" className="details-link">{t('home.contact_cta', 'اتصل بنا')}</Link>
+          </div>
+
           <div style={{ marginTop: 20 }}>
             <Link to="/products" className="details-link">{t('products.back_to_products') || 'Back to products'}</Link>
           </div>

@@ -29,6 +29,15 @@ const Products: React.FC = () => {
         <Link to={`/products/${product.slug}`} className="details-link">
           {t('home.discover_cta')}
         </Link>
+        {/* WhatsApp order CTA */}
+        <a
+          className="order-wa"
+          href={`https://wa.me/21654477309?text=${encodeURIComponent(`${t('products.order_whatsapp_message', 'Bonjour, je souhaite commander')}: ${t(`products.${product.nameKey}`)} (${product.price.toFixed(2)} ${t('products.price_unit')})`)}`}
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          {t('products.order_whatsapp', 'Commander sur WhatsApp')}
+        </a>
       </div>
     </div>
   );

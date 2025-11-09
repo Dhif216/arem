@@ -148,6 +148,21 @@
   border-bottom: 1px solid var(--primary-color);
 }
 
+.order-wa {
+  display: inline-block;
+  margin-top: 10px;
+  background-color: #25D366;
+  color: #111;
+  text-decoration: none;
+  padding: 10px 16px;
+  border-radius: 6px;
+  font-weight: 700;
+}
+
+.order-wa:hover {
+  filter: brightness(1.05);
+}
+
 /* RTL Adjustments */
 [dir="rtl"] .category-filter-bar {
   /* Ensure scrolling direction is natural for RTL */

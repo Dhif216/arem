@@ -35,6 +35,9 @@
     "seasonal": "موسمية"
   },
   "products": {
+    "order_whatsapp": "اطلب عبر واتساب",
+    "order_whatsapp_message": "مرحبا، أود طلب",
+    "contact_cta": "اتصل بنا",
     "price_unit": "د.ت/كغ",
     "price_label": "السعر",
     "category_label": "الصنف",

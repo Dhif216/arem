@@ -73,9 +73,14 @@ const Home: React.FC = () => {
           <h1>{t('site.welcome_message')}</h1>
           <p className="slogan-text">{t('footer.slogan')}</p>
           
-          <Link to="/products" className="cta-button">
-            {t('home.view_products_cta')}
-          </Link>
+          <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap', justifyContent: 'center' }}>
+            <Link to="/products" className="cta-button">
+              {t('home.view_products_cta')}
+            </Link>
+            <Link to="/contact" className="cta-button cta-outline">
+              {t('home.contact_cta', 'اتصل بنا')}
+            </Link>
+          </div>
         </div>
       </section>
 
