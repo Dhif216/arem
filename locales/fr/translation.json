@@ -36,6 +36,10 @@
   },
   "products": {
     "price_unit": "DT/Kg",
+    "price_label": "Prix",
+    "category_label": "Catégorie",
+    "back_to_products": "Retour aux produits",
+    "not_found": "Produit introuvable",
     "product_baklawa_name": "Baklawa (Amandes)",
     "product_baklawa_desc": "Couches de pâte filo, noix hachées et sirop de miel.",
     "product_kaak_warka_name": "Ka'ak Warka",
