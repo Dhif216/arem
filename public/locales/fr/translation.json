@@ -99,6 +99,7 @@
     "form_title": "Envoyez-nous un Message",
     "form_name_label": "Nom Complet",
     "form_email_label": "Adresse Email",
+    "form_email_optional_label": "Adresse Email (optionnel)",
     "form_address_label": "Adresse de Livraison",
     "form_product_label": "Choisissez un Produit",
     "form_message_label": "Votre Message (optionnel)",

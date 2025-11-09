@@ -64,7 +64,8 @@ const Contact: React.FC = () => {
   // submit handler (WhatsApp)
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    const whatsappNumber = '21626207309';
+    // Use the new store number; sanitize for wa.me (no leading 00)
+    const whatsappNumber = '21654477309';
     const message = `طلب جديد:
 الاسم: ${formData.name}
 البريد الإلكتروني: ${formData.email}
@@ -93,8 +94,8 @@ const Contact: React.FC = () => {
             </div>
 
             <div className="form-group">
-              <label htmlFor="email">{t('contact.form_email_label')}</label>
-              <input type="email" id="email" name="email" value={formData.email} onChange={handleChange} required />
+              <label htmlFor="email">{t('contact.form_email_optional_label') || t('contact.form_email_label')}</label>
+              <input type="email" id="email" name="email" value={formData.email} onChange={handleChange} />
             </div>
 
             <div className="form-group">
@@ -132,8 +133,8 @@ const Contact: React.FC = () => {
         <section className="contact-info-section">
           <h2>{t('contact.info_title')}</h2>
           <div className="info-details">
-            <p><strong>{t('footer.address')}:</strong> 24 Rue de la Pâtisserie, Tunis, Tunisie</p>
-            <p><strong>{t('footer.phone')}:</strong> +216 98 765 432</p>
+            <p><strong>{t('footer.address')}:</strong> Rue Costa rica 5120 11 cite erriadh sousse 4023</p>
+            <p><strong>{t('footer.phone')}:</strong> 0021654477309</p>
             <p><strong>{t('footer.email')}:</strong> contact@tunisiansweets.tn</p>
             <p><strong>{t('footer.hours_label')}:</strong> {t('footer.hours_value')}</p>
           </div>

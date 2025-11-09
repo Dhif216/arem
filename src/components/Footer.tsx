@@ -8,8 +8,8 @@ const Footer: React.FC = () => {
   
   // Example dummy data for contact and social media
   const contactInfo = {
-    address: "24 Rue de la Pâtisserie, Tunis, Tunisie",
-    phone: "+216 98 765 432",
+    address: "Rue Costa rica 5120 11 cite erriadh sousse 4023",
+    phone: "0021654477309",
     email: "contact@tunisiansweets.tn",
     hours: t('footer.hours_value'),
   };
@@ -18,7 +18,7 @@ const Footer: React.FC = () => {
   const socialLinks = [
     { name: 'Facebook', url: 'https://www.facebook.com/emel.mohamed.948496', icon: 'FB' },
     { name: 'Instagram', url: 'https://www.instagram.com/fadhila.chebbi.9/', icon: 'IG' },
-    { name: 'WhatsApp', url: 'https://wa.me/21626207309', icon: 'WA' },
+  { name: 'WhatsApp', url: 'https://wa.me/21654477309', icon: 'WA' },
   ];
 
   return (
