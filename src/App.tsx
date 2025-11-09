@@ -10,6 +10,7 @@ import Home from './pages/Home'; // Home page loads immediately
 
 // 💡 CODE SPLITTING: Dynamically import non-critical pages
 const LazyProducts = lazy(() => import('./pages/Products'));
+const LazyProductDetail = lazy(() => import('./pages/ProductDetail'));
 const LazyContact = lazy(() => import('./pages/Contact'));
 
 // 3. Import global CSS
@@ -48,6 +49,7 @@ const App: React.FC = () => {
             
             {/* USE LAZY COMPONENTS */}
             <Route path="/products" element={<LazyProducts />} />
+            <Route path="/products/:slug" element={<LazyProductDetail />} />
             <Route path="/contact" element={<LazyContact />} />
             
             {/* Fallback route for 404 pages */}

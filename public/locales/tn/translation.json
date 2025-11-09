@@ -36,6 +36,10 @@
   },
   "products": {
     "price_unit": "د.ت/كغ",
+    "price_label": "السعر",
+    "category_label": "الصنف",
+    "back_to_products": "عودة إلى المنتجات",
+    "not_found": "المنتج غير موجود",
     "product_kaak_warka_name": "كعك ورقة",
     "product_kaak_warka_desc": "حلقات رقيقة من دقيق القمح، معطرة بماء الزهر.",
     "product_baklawa_name": "بقلاوة",
