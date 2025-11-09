@@ -99,6 +99,7 @@
     "form_title": "أرسلوا لنا رسالة",
     "form_name_label": "الاسم الكامل",
     "form_email_label": "البريد الإلكتروني",
+    "form_email_optional_label": "البريد الإلكتروني (اختياري)",
     "form_address_label": "العنوان",
     "form_product_label": "اختر المنتج",
     "form_message_label": "رسالتكم",
