@@ -7,12 +7,14 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Header from './components/Header';
 import Footer from './components/Footer';
 import FloatingWhatsApp from './components/FloatingWhatsApp';
+import CookieConsent from './components/CookieConsent';
 import Home from './pages/Home'; // Home page loads immediately
 
 // 💡 CODE SPLITTING: Dynamically import non-critical pages
 const LazyProducts = lazy(() => import('./pages/Products'));
 const LazyProductDetail = lazy(() => import('./pages/ProductDetail'));
 const LazyContact = lazy(() => import('./pages/Contact'));
+const LazyPrivacy = lazy(() => import('./pages/Privacy'));
 
 // 3. Import global CSS
 import './App.css'; 
@@ -63,6 +65,7 @@ const App: React.FC = () => {
             <Route path="/products" element={<LazyProducts />} />
             <Route path="/products/:slug" element={<LazyProductDetail />} />
             <Route path="/contact" element={<LazyContact />} />
+            <Route path="/privacy" element={<LazyPrivacy />} />
             
             {/* Fallback route for 404 pages */}
             <Route path="*" element={
@@ -77,6 +80,7 @@ const App: React.FC = () => {
       
       <Footer /> 
       <FloatingWhatsApp />
+      <CookieConsent />
     </Router>
   );
 };

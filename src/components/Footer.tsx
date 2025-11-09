@@ -73,6 +73,10 @@ const Footer: React.FC = () => {
       <div className="footer-bottom">
         <p>
           &copy; {new Date().getFullYear()} {t('site.title')}. {t('footer.copyright')}
+          {' | '}
+          <Link to="/privacy" style={{ color: 'inherit', textDecoration: 'underline' }}>
+            {t('footer.privacy_link', 'Privacy Policy')}
+          </Link>
         </p>
       </div>
     </footer>

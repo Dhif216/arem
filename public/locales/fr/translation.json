@@ -1,6 +1,6 @@
 {
   "site": {
-    "title": "Pâtisserie Chabbi",
+    "title": "Pâtisserie Chebbi",
     "welcome_message": "Bienvenue chez vos experts en douceurs tunisiennes !"
   },
   "nav": {
@@ -17,7 +17,8 @@
     "hours_label": "Horaires",
     "hours_value": "Lun-Sam: 8h00 - 18h00",
     "follow_us": "Suivez-nous",
-    "copyright": "Tous droits réservés."
+    "copyright": "Tous droits réservés.",
+    "privacy_link": "Politique de Confidentialité"
   },
   "home": {
     "view_products_cta": "Découvrez nos Douceurs",
@@ -111,6 +112,14 @@
     "form_submission_alert": "Votre message a été envoyé !",
     "info_title": "Informations Utiles",
     "map_placeholder_text": "Localisation de la boutique (Carte Google Maps)."
+  },
+  "cookie": {
+    "banner_label": "Consentement aux cookies",
+    "heading": "Nous utilisons des cookies",
+    "message": "Nous utilisons des cookies et technologies similaires pour améliorer votre expérience, analyser le trafic du site et personnaliser le contenu. En cliquant sur \"Accepter\", vous consentez à notre utilisation des cookies.",
+    "privacy_link": "En savoir plus",
+    "accept": "Accepter",
+    "decline": "Refuser"
   },
   "loading_text": "Chargement..."
 }
