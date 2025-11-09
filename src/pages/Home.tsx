@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import './Home.css'; 
@@ -24,25 +24,49 @@ const Home: React.FC = () => {
     makroudh: 'https://masmoudi.tn/cdn/shop/products/makroudh-asmar-3_675acffb-ef0b-4479-a188-46bdcf5167d5_grande.png?v=1682589587',
   };
 
+  const videoRef = useRef<HTMLVideoElement>(null);
+
+  useEffect(() => {
+    const v = videoRef.current;
+    if (!v) return;
+    // Try to kickstart autoplay once metadata is loaded
+    const onLoaded = () => {
+      v.play().catch(() => {
+        // Autoplay might be blocked; keep poster visible silently
+      });
+    };
+    v.addEventListener('loadeddata', onLoaded);
+    return () => v.removeEventListener('loadeddata', onLoaded);
+  }, []);
+
   return (
     <div className="home-page">
       
       {/* 1. Hero Section: Video Background */}
       <section className="hero-section">
-        <video 
-          className="hero-video-background" 
-          autoPlay 
-          loop 
-          muted 
+        <video
+          ref={videoRef}
+          className="hero-video-background"
+          autoPlay
+          loop
+          muted
           playsInline
           preload="metadata"
-          poster={AssetUrls.heroPoster} 
+          poster={AssetUrls.heroPoster}
+          src={AssetUrls.heroVideoMp4}
+          onError={() => {
+            const v = videoRef.current;
+            if (v && v.src !== AssetUrls.heroVideoRootMp4) {
+              v.src = AssetUrls.heroVideoRootMp4;
+              v.load();
+              v.play().catch(() => {});
+            }
+          }}
         >
           {/* Try WebM first, then MP4 from /public/media, then a last-chance root /ad.mp4 */}
           <source src={AssetUrls.heroVideoWebm} type="video/webm" />
           <source src={AssetUrls.heroVideoMp4} type="video/mp4" />
           <source src={AssetUrls.heroVideoRootMp4} type="video/mp4" />
-          {/* If neither source is available, the poster image will be shown */}
         </video>
 
         <div className="hero-content">
@@ -50,7 +74,7 @@ const Home: React.FC = () => {
           <p className="slogan-text">{t('footer.slogan')}</p>
           
           <Link to="/products" className="cta-button">
-            {t('home.view_products_cta')} 
+            {t('home.view_products_cta')}
           </Link>
         </div>
       </section>
