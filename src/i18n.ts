@@ -27,9 +27,9 @@ i18n
       caches: ['cookie', 'localStorage'],
     },
 
-    // 🛑 CRITICAL FIX: The repository sub-path is added here for GitHub Pages.
+    // Backend configuration for loading translations
     backend: {
-        loadPath: '/arem/locales/{{lng}}/{{ns}}.json', // <-- CORRECTED PATH
+      loadPath: '/locales/{{lng}}/{{ns}}.json',
     },
 
     // React-i18next configuration (important for Suspense)

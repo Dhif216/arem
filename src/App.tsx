@@ -37,8 +37,7 @@ const App: React.FC = () => {
   );
 
   return (
-    // 5. 💡 FIX: Set BASENAME for GitHub Pages deployment
-    <Router basename="/arem"> 
+    <Router>
       <Header />
       
       <main className="content">
