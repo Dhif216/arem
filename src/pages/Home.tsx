@@ -7,13 +7,15 @@ const Home: React.FC = () => {
   const { t } = useTranslation();
 
   // Defined External and Public Paths
+  const base = import.meta.env.BASE_URL || '/';
   const AssetUrls = {
-    // 🛑 FIX: The local video path MUST include the GitHub Pages repository name.
-    adVideo: '/arem/ad.mp4', 
-    
+    // Place your video files in public/media: public/media/hero.webm and/or public/media/hero.mp4
+    heroVideoWebm: `${base}media/hero.webm`,
+    heroVideoMp4: `${base}media/hero.mp4`,
+
     // External placeholder for poster (replace with your actual URL)
     heroPoster: 'https://i.redd.it/our-eid-pastries-look-very-aesthetically-pleasing-i-gotta-v0-o4bq1ovhfsw81.jpg?width=700&format=pjpg&auto=webp&s=6cd456d5826614c6655cf6c728370c9910773159', 
-    
+
     // External Image URLs for featured products
     kaakWarka: 'https://patisseriemasmoudi.fr/cdn/shop/products/Kaak-Warka_a41870b1-855c-4586-870e-7a0ba791cdb4_750x810.png?v=1757070977',
     baklawa: 'https://images.unsplash.com/photo-1617806501553-d3a6a3a7b227?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8YmFrbGF2YXxlbnwwfHwwfHx8MA%3D%3D&fm=jpg&q=60&w=3000',
@@ -33,7 +35,10 @@ const Home: React.FC = () => {
           playsInline
           poster={AssetUrls.heroPoster} 
         >
-          <source src={AssetUrls.adVideo} type="video/mp4" /> 
+          {/* Try WebM first, then MP4 as fallback */}
+          <source src={AssetUrls.heroVideoWebm} type="video/webm" />
+          <source src={AssetUrls.heroVideoMp4} type="video/mp4" />
+          {/* If neither source is available, the poster image will be shown */}
         </video>
 
         <div className="hero-content">
