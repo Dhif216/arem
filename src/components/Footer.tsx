@@ -14,10 +14,11 @@ const Footer: React.FC = () => {
     hours: t('footer.hours_value'),
   };
 
+  // ✅ Updated Social Links with real URLs
   const socialLinks = [
-    { name: 'Facebook', url: '#', icon: 'FB' },
-    { name: 'Instagram', url: '#', icon: 'IG' },
-    { name: 'WhatsApp', url: '#', icon: 'WA' },
+    { name: 'Facebook', url: 'https://www.facebook.com/emel.mohamed.948496', icon: 'FB' },
+    { name: 'Instagram', url: 'https://www.instagram.com/fadhila.chebbi.9/', icon: 'IG' },
+    { name: 'WhatsApp', url: 'https://wa.me/21626207309', icon: 'WA' },
   ];
 
   return (
@@ -54,7 +55,13 @@ const Footer: React.FC = () => {
           <h4>{t('footer.follow_us')}</h4>
           <div className="social-icons">
             {socialLinks.map(link => (
-              <a key={link.name} href={link.url} target="_blank" rel="noopener noreferrer" aria-label={link.name}>
+              <a
+                key={link.name}
+                href={link.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label={link.name}
+              >
                 <span className="icon-placeholder">{link.icon}</span>
               </a>
             ))}
@@ -64,7 +71,9 @@ const Footer: React.FC = () => {
       </div>
 
       <div className="footer-bottom">
-        <p>&copy; {new Date().getFullYear()} {t('site.title')}. {t('footer.copyright')}</p>
+        <p>
+          &copy; {new Date().getFullYear()} {t('site.title')}. {t('footer.copyright')}
+        </p>
       </div>
     </footer>
   );

@@ -1,12 +1,12 @@
-/* Define Variables for easier theming */
+/* Define Variables for easier theming (Reference from index.css) */
 :root {
-  --primary-color: #A0522D; /* Sienna Brown / Theme Color */
-  --accent-color: #FFC300; /* Rich Gold/Ochre */
-  --light-color: #FDFDFD; /* Near-white cream */
-  --dark-color: #2D1E1E; /* Very dark brown/almost black */
+  --primary-color: #A0522D; 
+  --accent-color: #FFC300; 
+  --light-color: #FDFDFD; 
+  --dark-color: #2D1E1E; 
 }
 
-/* --- Mobile-First Base Styles (Default for small screens) --- */
+/* --- Mobile-First Base Styles --- */
 .header {
   background-color: var(--dark-color); 
   color: var(--light-color); 
@@ -16,12 +16,12 @@
   padding: 15px 20px; 
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
   width: 100%; 
-  z-index: 100; /* Ensure header is always on top */
+  z-index: 100;
 }
 
 /* 🏆 Site Title / Logo */
 .header-title {
-    flex-shrink: 1; /* Allows title to shrink if controls are wide */
+    flex-shrink: 1; 
 }
 .header-title h1 {
   font-size: 1.5rem; 
@@ -35,11 +35,11 @@
     text-decoration: none; 
 }
 
-/* 💡 FIX 1: Group Controls to manage mobile spacing */
+/* Group Controls (Language Switcher + Hamburger) */
 .header-controls {
     display: flex;
     align-items: center;
-    gap: 10px; /* Space between language and hamburger */
+    gap: 10px; 
 }
 
 /* 🌐 Language Switcher Styling */
@@ -74,7 +74,7 @@
   color: var(--accent-color); 
   padding: 5px;
   z-index: 1001; 
-  margin-left: 0; /* Spacing handled by .header-controls gap */
+  margin-left: 0; 
 }
 
 /* --- Mobile Navigation Styling (Default: Hidden) --- */
@@ -87,23 +87,25 @@
   z-index: 1000;
   transition: transform 0.4s ease-in-out;
   
-  /* LTR Default: Pinned left, hidden by translating left (out of view) */
+  /* LTR Default: Hidden, off-screen left */
   left: 0; 
   right: auto;
   transform: translateX(-100%); 
+  visibility: hidden; /* Hides menu completely */
 }
 
 /* Mobile Navigation when Active (Slides in) */
 .header-nav.open {
-  transform: translateX(0); /* Slides ON-SCREEN (visible) */
+  transform: translateX(0); 
   display: block; 
+  visibility: visible;
 }
 
 .header-nav ul {
   list-style: none;
   display: flex;
   flex-direction: column; 
-  padding: 100px 0 0 0; 
+  padding: 120px 0 0 0; 
   text-align: center;
 }
 
@@ -131,23 +133,31 @@
 @media (min-width: 768px) {
   .header {
     padding: 20px 80px;
+    justify-content: space-between;
   }
   
-  /* Reset mobile fixed position and ensure controls are inline */
+  /* 🛑 CRITICAL FIX: Reset mobile fixed position and size */
   .header-nav, .header-nav.open {
-    display: block;
-    position: static;
-    transform: none; 
-    left: auto;
-    right: auto;
+    display: block !important;
+    visibility: visible !important; /* Final guarantee the nav is shown */
+    position: static !important; /* CRITICAL: Resets 'fixed' position */
+    width: auto !important; 
+    height: auto !important; 
+    
+    transform: none !important; /* Removes mobile translation */
+    left: auto !important;
+    right: auto !important;
+    
+    /* Pushes the NAVIGATION LINKS right of the Title */
     margin-left: auto; 
+    margin-right: 30px; 
     padding: 0;
     background-color: transparent;
     box-shadow: none;
   }
 
   .header-controls {
-      /* On desktop, controls should sit next to nav links */
+      order: 3;
       gap: 30px; 
   }
   
@@ -157,46 +167,28 @@
     padding: 0;
   }
   
-  .header-nav ul li {
-    border-bottom: none;
+  .header-title {
+      order: 1;
   }
-  
-  .header-nav ul li a {
-      font-size: 1rem;
-      padding: 5px 0;
-      color: var(--light-color);
-  }
-  
-  .header-nav ul li a:hover {
-      color: var(--accent-color); 
-      background-color: transparent;
-  }
-  
-  .hamburger-button {
-    display: none; 
-  }
+  /* ... rest of the desktop CSS ... */
 }
 
 /* ---------------------------------------------------- */
-/* 🛑 DEFINITIVE RTL FIXES for Hamburger Menu */
+/* 🛑 DEFINITIVE RTL FIXES */
 /* ---------------------------------------------------- */
-
-/* 1. RTL POSITIONING: Pin to the right */
 [dir="rtl"] .header-nav {
     left: auto; 
     right: 0; 
-    /* Hide the menu by translating it RIGHT (off-screen) */
     transform: translateX(100%);
+    visibility: hidden; 
 }
 
-/* 2. RTL SHOW STATE: When menu is open, translate it back to 0 (visible) */
 [dir="rtl"] .header-nav.open {
-    /* Slides ON-SCREEN (right to left for RTL) */
     transform: translateX(0);
+    visibility: visible;
 }
 
-/* 3. LOGO ALIGNMENT: Ensure logo is correctly positioned */
 [dir="rtl"] .header-title {
     margin-right: 0;
-    margin-left: auto;
+    margin-left: 0;
 }
