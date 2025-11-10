@@ -43,11 +43,27 @@
 2. Confirm deletion in the popup
 3. Product will be removed immediately
 
-### 3. **Data Persistence**
-- All product changes are saved to browser localStorage
-- Changes persist across browser sessions
-- Initial load uses default products from `products.ts`
-- Once modified, admin changes take priority
+### 3. **Data Persistence (Firebase)**
+- All product changes are saved in Firebase **Firestore** (cloud database)
+- Images are stored in Firebase **Storage**
+- Real-time updates: public `Produits` and homepage featured section update automatically
+- Local fallback: if Firestore fails, the app can fall back to bundled mock data
+
+#### Environment Variables (.env)
+Create a `.env` (never commit) based on `.env.example` and fill the `VITE_FIREBASE_*` values.
+
+Key points:
+- `VITE_FIREBASE_API_KEY` is now rotated; restrict by HTTP referrer (sweetchebbi.com + localhost) in Google Cloud Console
+- Ensure `VITE_FIREBASE_STORAGE_BUCKET` ends with `.appspot.com` (NOT `firebasestorage.app`)
+- Rebuild or restart dev after changes (Vite loads env at startup)
+
+#### Common Error: `net::ERR_NAME_NOT_RESOLVED`
+Cause: Wrong `VITE_FIREBASE_STORAGE_BUCKET` value.
+Fix: Set it to `PROJECT_ID.appspot.com` then rebuild.
+
+#### Upcoming Security Upgrade
+- Current login is still hardcoded (temporary)
+- Planned: Replace with Firebase Authentication (email/password) and update Firestore security rules to restrict writes to the admin account only.
 
 ---
 
@@ -99,14 +115,14 @@
 
 ## 🔒 Security Notes
 
-- Login credentials are hardcoded (username: RouaDhif, password: Roua4488)
-- Authentication token stored in localStorage
-- No backend - all data stored in browser
-- For production use, consider implementing:
-  - Backend API for product management
-  - Database storage (MongoDB, PostgreSQL, etc.)
-  - Proper authentication (JWT, OAuth)
-  - File upload for images
+- Firebase now provides centralized persistence (Firestore & Storage)
+- Hardcoded credentials remain (temporary) – replace with Firebase Auth soon
+- API key restricted by HTTP referrers (configure in Google Cloud Console)
+- Next steps:
+   - Implement Firebase Auth (email/password admin)
+   - Tighten Firestore security rules (allow read for all, write only for authenticated admin)
+   - Disable unused Google APIs for reduced attack surface
+   - Optionally enable AppCheck to reduce abuse
 
 ---
 

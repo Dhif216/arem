@@ -5,6 +5,8 @@ import './index.css';
 
 // 💡 IMPORT THE i18n CONFIG
 import './i18n.ts'; 
+// Env sanity checks (non-blocking).
+import './envCheck';
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
