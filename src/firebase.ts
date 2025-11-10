@@ -22,13 +22,8 @@ if (!firebaseConfig.apiKey || !firebaseConfig.projectId) {
   // eslint-disable-next-line no-console
   console.error('Missing Firebase environment variables. Please set VITE_FIREBASE_* in your .env file.');
 }
-// Common misconfig: wrong storage bucket host leads to DNS errors
-if (firebaseConfig.storageBucket && /firebasestorage\.app$/i.test(String(firebaseConfig.storageBucket))) {
-  // eslint-disable-next-line no-console
-  console.error(
-    `Invalid VITE_FIREBASE_STORAGE_BUCKET "${firebaseConfig.storageBucket}". Use the appspot.com form: <project-id>.appspot.com`,
-  );
-}
+// Note: storageBucket can be a custom GCS bucket name or the default appspot.com bucket.
+// Both forms are acceptable as long as the name matches an existing bucket in your project.
 
 // Initialize Firebase app (only once)
 const app = initializeApp(firebaseConfig);
