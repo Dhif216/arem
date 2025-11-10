@@ -8,8 +8,8 @@ import './i18n.ts';
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
-    {/* 💡 WRAP APP WITH SUSPENSE */}
-    <Suspense fallback={<div>Loading translations...</div>}>
+    {/* Suspense for i18n loading - no visual fallback needed */}
+    <Suspense fallback={<div style={{ minHeight: '100vh' }} />}>
       <App />
     </Suspense>
   </React.StrictMode>,
