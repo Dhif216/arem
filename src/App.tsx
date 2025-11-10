@@ -15,6 +15,11 @@ const LazyProducts = lazy(() => import('./pages/Products'));
 const LazyProductDetail = lazy(() => import('./pages/ProductDetail'));
 const LazyContact = lazy(() => import('./pages/Contact'));
 const LazyPrivacy = lazy(() => import('./pages/Privacy'));
+const LazyAdminLogin = lazy(() => import('./pages/AdminLogin'));
+const LazyAdminDashboard = lazy(() => import('./pages/AdminDashboard'));
+
+// 2.5 Import Protected Route component
+import ProtectedRoute from './components/ProtectedRoute';
 
 // 3. Import global CSS
 import './App.css';
@@ -68,6 +73,14 @@ const App: React.FC = () => {
             <Route path="/products/:slug" element={<LazyProductDetail />} />
             <Route path="/contact" element={<LazyContact />} />
             <Route path="/privacy" element={<LazyPrivacy />} />
+            
+            {/* Admin routes */}
+            <Route path="/admin/login" element={<LazyAdminLogin />} />
+            <Route path="/admin/dashboard" element={
+              <ProtectedRoute>
+                <LazyAdminDashboard />
+              </ProtectedRoute>
+            } />
             
             {/* Fallback route for 404 pages */}
             <Route path="*" element={
