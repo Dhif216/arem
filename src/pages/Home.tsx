@@ -147,6 +147,71 @@ const Home: React.FC = () => {
           
         </div>
       </section>
+
+      {/* 4. SEO-Rich Content Section */}
+      <section className="seo-content" style={{ 
+        padding: '60px 20px', 
+        maxWidth: '1000px', 
+        margin: '0 auto',
+        backgroundColor: 'var(--background-light)',
+        lineHeight: '1.8'
+      }}>
+        <h2 style={{ 
+          fontSize: '1.8rem', 
+          color: 'var(--primary-color)', 
+          marginBottom: '20px',
+          textAlign: 'center' 
+        }}>
+          {t('seo.about_title', 'حلويات شابي - تقاليد الحلويات التونسية الأصيلة في سوسة')}
+        </h2>
+        
+        <div style={{ textAlign: 'justify', color: '#333' }}>
+          <p style={{ marginBottom: '15px' }}>
+            {t('seo.paragraph1', 
+              'حلويات شابي هي وجهتك المفضلة للحلويات التونسية التقليدية في مدينة سوسة. نحن نفخر بتقديم أجود أنواع الحلويات المصنوعة يدوياً باستخدام وصفات عائلية أصيلة تم توارثها عبر الأجيال. من المقروض الشهي إلى البقلاوة الغنية بالمكسرات، كل قطعة حلوى نصنعها تعكس التزامنا بالجودة والأصالة.'
+            )}
+          </p>
+          
+          <h3 style={{ fontSize: '1.4rem', color: 'var(--primary-color)', margin: '25px 0 15px' }}>
+            {t('seo.products_title', 'تشكيلة واسعة من الحلويات التونسية')}
+          </h3>
+          
+          <p style={{ marginBottom: '15px' }}>
+            {t('seo.paragraph2',
+              'نقدم مجموعة متنوعة من الحلويات التي تلبي جميع الأذواق والمناسبات. تشمل تشكيلتنا الحلويات المعسلة مثل البقلاوة والزلابية والصمصة، والحلويات الجافة مثل الغريبة وكعك الورقة، بالإضافة إلى الحلويات الموسمية الخاصة بالأعياد والمناسبات. كل منتج يتم إعداده بعناية فائقة باستخدام أجود المكونات الطبيعية.'
+            )}
+          </p>
+          
+          <h3 style={{ fontSize: '1.4rem', color: 'var(--primary-color)', margin: '25px 0 15px' }}>
+            {t('seo.quality_title', 'جودة لا تضاهى ونكهات أصيلة')}
+          </h3>
+          
+          <p style={{ marginBottom: '15px' }}>
+            {t('seo.paragraph3',
+              'في حلويات شابي، نستخدم فقط أفضل المكونات - من اللوز الفاخر والفستق الحلبي إلى العسل الطبيعي وماء الزهر الأصلي. نحن نؤمن بأن الحلويات التونسية التقليدية تستحق أن تُصنع بالطريقة الصحيحة، بدون إضافات صناعية أو مواد حافظة. كل يوم نقوم بتحضير منتجات طازجة لضمان أفضل مذاق وجودة لعملائنا الكرام.'
+            )}
+          </p>
+          
+          <h3 style={{ fontSize: '1.4rem', color: 'var(--primary-color)', margin: '25px 0 15px' }}>
+            {t('seo.order_title', 'طلب سهل وتوصيل سريع في سوسة')}
+          </h3>
+          
+          <p style={{ marginBottom: '15px' }}>
+            {t('seo.paragraph4',
+              'نوفر لكم خدمة طلب سهلة ومريحة عبر واتساب، حيث يمكنكم اختيار الحلويات المفضلة لديكم والحصول على توصيل سريع في جميع أنحاء سوسة. سواء كنتم تحضرون لمناسبة خاصة أو ترغبون في الاستمتاع بحلوى تقليدية لذيذة، فريقنا جاهز لخدمتكم. نقبل الدفع عند الاستلام لراحتكم.'
+            )}
+          </p>
+
+          <div style={{ marginTop: '30px', textAlign: 'center' }}>
+            <Link to="/products" className="cta-button" style={{ display: 'inline-block', marginRight: '10px' }}>
+              {t('home.view_all_products', 'تصفح جميع المنتجات')}
+            </Link>
+            <Link to="/contact" className="cta-button cta-outline" style={{ display: 'inline-block' }}>
+              {t('home.order_now', 'اطلب الآن')}
+            </Link>
+          </div>
+        </div>
+      </section>
       
     </div>
   );

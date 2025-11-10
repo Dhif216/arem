@@ -26,7 +26,9 @@
     "baklawa_desc": "Couches de pâte filo, noix hachées et sirop de miel, une richesse incomparable.",
     "makroudh_desc": "Gâteau de semoule fourré aux dattes, frit et baigné de miel, un classique.",
     "kaak_desc": "Petits gâteaux secs traditionnels aux graines de sésame et anis.",
-    "discover_cta": "Découvrir"
+    "discover_cta": "Découvrir",
+    "view_all_products": "Voir Tous les Produits",
+    "order_now": "Commander Maintenant"
   },
   
   "categories": {
@@ -112,6 +114,16 @@
     "form_submission_alert": "Votre message a été envoyé !",
     "info_title": "Informations Utiles",
     "map_placeholder_text": "Localisation de la boutique (Carte Google Maps)."
+  },
+  "seo": {
+    "about_title": "Pâtisserie Chebbi - Traditions Authentiques des Douceurs Tunisiennes à Sousse",
+    "paragraph1": "Pâtisserie Chebbi est votre destination privilégiée pour les douceurs tunisiennes traditionnelles dans la ville de Sousse. Nous sommes fiers d'offrir les meilleures pâtisseries faites à la main en utilisant des recettes familiales authentiques transmises de génération en génération. Du makroudh savoureux au baklawa riche en noix, chaque pièce que nous créons reflète notre engagement envers la qualité et l'authenticité.",
+    "products_title": "Large Gamme de Douceurs Tunisiennes",
+    "paragraph2": "Nous proposons une variété de douceurs qui répondent à tous les goûts et occasions. Notre sélection comprend les pâtisseries au miel comme le baklawa, la zlabia et la samsa, les gâteaux secs comme la ghraïba et le ka'ak warka, ainsi que les spécialités saisonnières pour les fêtes et occasions. Chaque produit est préparé avec un soin extrême en utilisant les meilleurs ingrédients naturels.",
+    "quality_title": "Qualité Incomparable et Saveurs Authentiques",
+    "paragraph3": "Chez Pâtisserie Chebbi, nous utilisons uniquement les meilleurs ingrédients - des amandes de qualité supérieure et des pistaches d'Alep au miel naturel et à l'eau de fleur d'oranger authentique. Nous croyons que les douceurs tunisiennes traditionnelles méritent d'être faites correctement, sans additifs artificiels ni conservateurs. Chaque jour, nous préparons des produits frais pour garantir le meilleur goût et la meilleure qualité à nos chers clients.",
+    "order_title": "Commande Facile et Livraison Rapide à Sousse",
+    "paragraph4": "Nous offrons un service de commande facile et pratique via WhatsApp, où vous pouvez choisir vos douceurs préférées et bénéficier d'une livraison rapide partout à Sousse. Que vous prépariez une occasion spéciale ou que vous souhaitiez simplement profiter d'une délicieuse douceur traditionnelle, notre équipe est prête à vous servir. Nous acceptons le paiement à la livraison pour votre confort."
   },
   "cookie": {
     "banner_label": "Consentement aux cookies",
