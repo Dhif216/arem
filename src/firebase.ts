@@ -3,16 +3,24 @@ import { initializeApp } from 'firebase/app';
 import { getFirestore } from 'firebase/firestore';
 import { getStorage } from 'firebase/storage';
 
-// Provided config
+// Read config from Vite environment variables.
+// IMPORTANT: Define these in .env (not committed) or the GitHub Actions environment.
 const firebaseConfig = {
-  apiKey: "AIzaSyD2N3ekoVGQqBGw2ME3L4BvHBJAXxfp2iU",
-  authDomain: "tunisian-sweets-3d860.firebaseapp.com",
-  projectId: "tunisian-sweets-3d860",
-  storageBucket: "tunisian-sweets-3d860.firebasestorage.app",
-  messagingSenderId: "286297710207",
-  appId: "1:286297710207:web:b8bd4319a50a71c19a294a",
-  measurementId: "G-ZFBM6Z011C"
+  apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
+  authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN,
+  projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID,
+  storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID,
+  appId: import.meta.env.VITE_FIREBASE_APP_ID,
+  // measurementId optional for analytics; handled elsewhere via GA4 gtag.
+  measurementId: import.meta.env.VITE_FIREBASE_MEASUREMENT_ID,
 };
+
+// Basic validation to help during local dev
+if (!firebaseConfig.apiKey || !firebaseConfig.projectId) {
+  // eslint-disable-next-line no-console
+  console.error('Missing Firebase environment variables. Please set VITE_FIREBASE_* in your .env file.');
+}
 
 // Initialize Firebase app (only once)
 const app = initializeApp(firebaseConfig);
