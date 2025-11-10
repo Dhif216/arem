@@ -145,6 +145,37 @@
   min-height: 80px;
 }
 
+.image-upload-container {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.upload-options {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.upload-tab {
+  background: #667eea;
+  color: white;
+  border: none;
+  padding: 10px 16px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 600;
+  transition: all 0.3s;
+  white-space: nowrap;
+}
+
+.upload-tab:hover {
+  background: #5568d3;
+  transform: translateY(-1px);
+}
+
 .image-preview {
   margin-top: 10px;
   padding: 10px;

@@ -77,6 +77,10 @@ const Footer: React.FC = () => {
           <Link to="/privacy" style={{ color: 'inherit', textDecoration: 'underline' }}>
             {t('footer.privacy_link', 'Privacy Policy')}
           </Link>
+          {' | '}
+          <Link to="/admin/login" style={{ color: 'inherit', textDecoration: 'none' }} aria-label="Admin">
+            🔒
+          </Link>
         </p>
       </div>
     </footer>

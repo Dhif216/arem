@@ -249,21 +249,50 @@ const AdminDashboard = () => {
               </div>
 
               <div className="form-group">
-                <label>URL de l'image *</label>
-                <input
-                  type="text"
-                  value={formData.image}
-                  onChange={(e) => setFormData({...formData, image: e.target.value})}
-                  required
-                  placeholder="Ex: /media/products/makroud.jpg"
-                />
-                {formData.image && (
-                  <div className="image-preview">
-                    <img src={formData.image} alt="Preview" onError={(e) => {
-                      (e.target as HTMLImageElement).src = 'https://via.placeholder.com/150?text=Image+Error';
-                    }} />
+                <label>Image du produit *</label>
+                <div className="image-upload-container">
+                  <div className="upload-options">
+                    <button
+                      type="button"
+                      className="upload-tab"
+                      onClick={() => document.getElementById('imageFileInput')?.click()}
+                    >
+                      📁 Télécharger depuis l'appareil
+                    </button>
+                    <span style={{ margin: '0 10px', color: '#999' }}>ou</span>
+                    <input
+                      type="text"
+                      value={formData.image}
+                      onChange={(e) => setFormData({...formData, image: e.target.value})}
+                      placeholder="Entrer une URL d'image"
+                      style={{ flex: 1 }}
+                    />
                   </div>
-                )}
+                  <input
+                    id="imageFileInput"
+                    type="file"
+                    accept="image/*"
+                    style={{ display: 'none' }}
+                    onChange={(e) => {
+                      const file = e.target.files?.[0];
+                      if (file) {
+                        // Convert to base64
+                        const reader = new FileReader();
+                        reader.onloadend = () => {
+                          setFormData({...formData, image: reader.result as string});
+                        };
+                        reader.readAsDataURL(file);
+                      }
+                    }}
+                  />
+                  {formData.image && (
+                    <div className="image-preview">
+                      <img src={formData.image} alt="Preview" onError={(e) => {
+                        (e.target as HTMLImageElement).src = 'https://via.placeholder.com/150?text=Image+Error';
+                      }} />
+                    </div>
+                  )}
+                </div>
               </div>
 
               <div className="form-group checkbox-group">
