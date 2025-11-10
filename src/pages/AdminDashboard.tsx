@@ -2,6 +2,8 @@ import { useState, useEffect } from 'react';
 import type { FormEvent } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './AdminDashboard.css';
+import { signInAnonymously } from 'firebase/auth';
+import { auth } from '../firebase';
 import {
   createProduct,
   updateProductById,
@@ -32,6 +34,9 @@ const AdminDashboard = () => {
   });
 
   useEffect(() => {
+    // Try to ensure Firebase authenticated context (helps with Storage rules)
+    signInAnonymously(auth).catch(() => {/* optional: anonymous auth may be disabled */});
+
     // Subscribe to all products (including inactive for admin visibility)
     setLoadingProducts(true);
     const unsub = subscribeAllProducts((items) => {
