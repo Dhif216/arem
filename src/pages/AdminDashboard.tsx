@@ -19,6 +19,9 @@ const AdminDashboard = () => {
   const [loadingProducts, setLoadingProducts] = useState<boolean>(true);
   const [editingProduct, setEditingProduct] = useState<FirestoreProduct | null>(null);
   const [showForm, setShowForm] = useState(false);
+  const [saving, setSaving] = useState(false);
+  const [uploadingImage, setUploadingImage] = useState(false);
+  const [statusMessage, setStatusMessage] = useState<{type: 'success' | 'error', text: string} | null>(null);
   const navigate = useNavigate();
 
   // Form state
@@ -58,6 +61,9 @@ const AdminDashboard = () => {
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
+    setSaving(true);
+    setStatusMessage(null);
+    
     const payload: Omit<FirestoreProduct, 'id' | 'active'> = {
       slug: slugify(formData.nameFr || `produit-${Date.now()}`),
       category: formData.category as Category,
@@ -72,12 +78,19 @@ const AdminDashboard = () => {
     try {
       if (editingProduct?.id) {
         await updateProductById(editingProduct.id, payload);
+        setStatusMessage({type: 'success', text: 'Produit mis à jour avec succès!'});
       } else {
         await createProduct(payload);
+        setStatusMessage({type: 'success', text: 'Produit ajouté avec succès!'});
       }
-      resetForm();
+      setTimeout(() => {
+        resetForm();
+        setStatusMessage(null);
+      }, 2000);
     } catch (err) {
-      alert('Erreur lors de l\'enregistrement du produit');
+      setStatusMessage({type: 'error', text: 'Erreur lors de l\'enregistrement du produit'});
+    } finally {
+      setSaving(false);
     }
   };
 
@@ -99,10 +112,13 @@ const AdminDashboard = () => {
   const handleDelete = async (id?: string) => {
     if (!id) return;
     if (!confirm('Êtes-vous sûr de vouloir supprimer ce produit? Cette action est définitive.')) return;
+    setStatusMessage(null);
     try {
       await deleteProductById(id);
+      setStatusMessage({type: 'success', text: 'Produit supprimé avec succès!'});
+      setTimeout(() => setStatusMessage(null), 3000);
     } catch (err) {
-      alert('Erreur lors de la suppression du produit');
+      setStatusMessage({type: 'error', text: 'Erreur lors de la suppression du produit'});
     }
   };
 
@@ -149,6 +165,13 @@ const AdminDashboard = () => {
         {showForm && (
           <div className="product-form-container">
             <h2>{editingProduct ? 'Modifier le produit' : 'Nouveau produit'}</h2>
+            
+            {statusMessage && (
+              <div className={`status-message ${statusMessage.type}`}>
+                {statusMessage.text}
+              </div>
+            )}
+            
             <form onSubmit={handleSubmit} className="product-form">
               <div className="form-row">
                 <div className="form-group">
@@ -233,8 +256,9 @@ const AdminDashboard = () => {
                       type="button"
                       className="upload-tab"
                       onClick={() => document.getElementById('imageFileInput')?.click()}
+                      disabled={uploadingImage}
                     >
-                      📁 Télécharger depuis l'appareil
+                      {uploadingImage ? '⏳ Téléversement...' : '📁 Télécharger depuis l\'appareil'}
                     </button>
                     <span style={{ margin: '0 10px', color: '#999' }}>ou</span>
                     <input
@@ -253,11 +277,17 @@ const AdminDashboard = () => {
                     onChange={async (e) => {
                       const file = e.target.files?.[0];
                       if (file) {
+                        setUploadingImage(true);
+                        setStatusMessage(null);
                         try {
                           const url = await uploadProductImage(file);
                           setFormData({...formData, image: url});
+                          setStatusMessage({type: 'success', text: 'Image téléversée avec succès!'});
+                          setTimeout(() => setStatusMessage(null), 3000);
                         } catch (err) {
-                          alert('Erreur lors du téléversement de l\'image');
+                          setStatusMessage({type: 'error', text: 'Erreur lors du téléversement de l\'image'});
+                        } finally {
+                          setUploadingImage(false);
                         }
                       }
                     }}
@@ -284,10 +314,10 @@ const AdminDashboard = () => {
               </div>
 
               <div className="form-actions">
-                <button type="submit" className="submit-btn">
-                  {editingProduct ? '💾 Mettre à jour' : '➕ Ajouter'}
+                <button type="submit" className="submit-btn" disabled={saving || uploadingImage}>
+                  {saving ? '⏳ Enregistrement...' : (editingProduct ? '💾 Mettre à jour' : '➕ Ajouter')}
                 </button>
-                <button type="button" onClick={resetForm} className="cancel-btn">
+                <button type="button" onClick={resetForm} className="cancel-btn" disabled={saving}>
                   Annuler
                 </button>
               </div>
@@ -297,6 +327,13 @@ const AdminDashboard = () => {
 
         <div className="products-list">
           <h2>Liste des produits</h2>
+          
+          {statusMessage && !showForm && (
+            <div className={`status-message ${statusMessage.type}`}>
+              {statusMessage.text}
+            </div>
+          )}
+          
           {loadingProducts && (
             <div className="loading-indicator">Chargement des produits...</div>
           )}
