@@ -5,10 +5,21 @@ export default defineConfig({
   base: '/', // Use absolute paths for custom domain
   plugins: [react()],
   build: {
+    // Optimize for performance
+    minify: 'esbuild', // Faster than terser
+    // Enable CSS code splitting
+    cssCodeSplit: true,
+    // Reduce chunk size warning limit
+    chunkSizeWarningLimit: 1000,
+
     assetsDir: 'assets',
     rollupOptions: {
       output: {
-        manualChunks: undefined,
+        // Better code splitting
+        manualChunks: {
+          'react-vendor': ['react', 'react-dom', 'react-router-dom'],
+          'i18n-vendor': ['react-i18next', 'i18next'],
+        },
         assetFileNames: (assetInfo) => {
           if (!assetInfo.name) return 'assets/[name]-[hash][extname]';
           

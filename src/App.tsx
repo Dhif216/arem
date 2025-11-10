@@ -17,8 +17,7 @@ const LazyContact = lazy(() => import('./pages/Contact'));
 const LazyPrivacy = lazy(() => import('./pages/Privacy'));
 
 // 3. Import global CSS
-import './App.css'; 
-import Skeleton from './components/Skeleton';
+import './App.css';
 
 const App: React.FC = () => {
   const { i18n } = useTranslation(); 
@@ -33,21 +32,24 @@ const App: React.FC = () => {
     
   }, [i18n.language]);
 
-  // Define a simple loading component using a translated key
+  // Simple, lightweight loading fallback
   const LoadingFallback = (
-    <div style={{ padding: '30px', maxWidth: 900, margin: '0 auto' }}>
-      <div style={{ display: 'grid', gap: '20px' }}>
-        <Skeleton height={40} />
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px,1fr))', gap: 20 }}>
-          {Array.from({ length: 6 }).map((_, i) => (
-            <div key={i} style={{ padding: 12, border: '1px solid #eee', borderRadius: 8 }}>
-              <Skeleton height={160} />
-              <Skeleton height={20} marginTop={10} />
-              <Skeleton height={14} marginTop={6} />
-            </div>
-          ))}
-        </div>
-      </div>
+    <div style={{ padding: '60px 20px', textAlign: 'center', minHeight: '50vh' }}>
+      <div style={{ 
+        display: 'inline-block',
+        width: '40px',
+        height: '40px',
+        border: '4px solid #f3f3f3',
+        borderTop: '4px solid var(--accent-color, #f9c74f)',
+        borderRadius: '50%',
+        animation: 'spin 1s linear infinite'
+      }} />
+      <style>{`
+        @keyframes spin {
+          0% { transform: rotate(0deg); }
+          100% { transform: rotate(360deg); }
+        }
+      `}</style>
     </div>
   );
 
