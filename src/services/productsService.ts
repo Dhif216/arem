@@ -106,9 +106,24 @@ export const getProductBySlug = async (slug: string): Promise<FirestoreProduct |
 
 // Image upload to Firebase Storage
 export const uploadProductImage = async (file: File): Promise<string> => {
-  const path = `products/${Date.now()}-${file.name}`;
+  // Sanitize filename
+  const safeName = file.name.replace(/[^a-zA-Z0-9.\-_]/g, '_');
+  const timestamp = Date.now();
+  const random = Math.random().toString(36).slice(2, 8);
+  const path = `products/${timestamp}-${random}-${safeName}`;
   const storageRef = ref(storage, path);
-  await uploadBytes(storageRef, file);
-  const url = await getDownloadURL(storageRef);
-  return url;
+  try {
+    const snapshot = await uploadBytes(storageRef, file, {
+      contentType: file.type || 'image/jpeg',
+      customMetadata: {
+        originalName: file.name,
+      },
+    });
+    const url = await getDownloadURL(snapshot.ref);
+    return url;
+  } catch (err) {
+    // eslint-disable-next-line no-console
+    console.error('Upload error:', err);
+    throw new Error('Échec du téléversement de l\'image');
+  }
 };

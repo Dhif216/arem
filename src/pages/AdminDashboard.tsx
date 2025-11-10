@@ -14,6 +14,7 @@ import type { FirestoreProduct, Category } from '../services/productsService';
 
 const AdminDashboard = () => {
   const [products, setProducts] = useState<FirestoreProduct[]>([]);
+  const [loadingProducts, setLoadingProducts] = useState<boolean>(true);
   const [editingProduct, setEditingProduct] = useState<FirestoreProduct | null>(null);
   const [showForm, setShowForm] = useState(false);
   const navigate = useNavigate();
@@ -31,8 +32,15 @@ const AdminDashboard = () => {
   });
 
   useEffect(() => {
-    const unsub = subscribeAllProducts((items) => setProducts(items));
-    return () => unsub();
+    // Subscribe to all products (including inactive for admin visibility)
+    setLoadingProducts(true);
+    const unsub = subscribeAllProducts((items) => {
+      setProducts(items);
+      setLoadingProducts(false);
+    });
+    return () => {
+      unsub();
+    };
   }, []);
 
   // Firestore handles persistence; no local saveProducts needed now.
@@ -83,10 +91,13 @@ const AdminDashboard = () => {
     setShowForm(true);
   };
 
-  const handleDelete = (id?: string) => {
+  const handleDelete = async (id?: string) => {
     if (!id) return;
-    if (confirm('Êtes-vous sûr de vouloir supprimer ce produit?')) {
-      deleteProductById(id);
+    if (!confirm('Êtes-vous sûr de vouloir supprimer ce produit? Cette action est définitive.')) return;
+    try {
+      await deleteProductById(id);
+    } catch (err) {
+      alert('Erreur lors de la suppression du produit');
     }
   };
 
@@ -281,6 +292,9 @@ const AdminDashboard = () => {
 
         <div className="products-list">
           <h2>Liste des produits</h2>
+          {loadingProducts && (
+            <div className="loading-indicator">Chargement des produits...</div>
+          )}
           <div className="products-table-container">
             <table className="products-table">
               <thead>
@@ -294,7 +308,7 @@ const AdminDashboard = () => {
                 </tr>
               </thead>
               <tbody>
-                {products.length === 0 ? (
+                {!loadingProducts && products.length === 0 ? (
                   <tr>
                     <td colSpan={6} className="no-products">
                       Aucun produit. Ajoutez votre premier produit!

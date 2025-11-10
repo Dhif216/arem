@@ -2,6 +2,7 @@
 import { initializeApp } from 'firebase/app';
 import { getFirestore } from 'firebase/firestore';
 import { getStorage } from 'firebase/storage';
+import { getAuth } from 'firebase/auth';
 
 // Read config from Vite environment variables.
 // IMPORTANT: Define these in .env (not committed) or the GitHub Actions environment.
@@ -21,6 +22,13 @@ if (!firebaseConfig.apiKey || !firebaseConfig.projectId) {
   // eslint-disable-next-line no-console
   console.error('Missing Firebase environment variables. Please set VITE_FIREBASE_* in your .env file.');
 }
+// Common misconfig: wrong storage bucket host leads to DNS errors
+if (firebaseConfig.storageBucket && /firebasestorage\.app$/i.test(String(firebaseConfig.storageBucket))) {
+  // eslint-disable-next-line no-console
+  console.error(
+    `Invalid VITE_FIREBASE_STORAGE_BUCKET "${firebaseConfig.storageBucket}". Use the appspot.com form: <project-id>.appspot.com`,
+  );
+}
 
 // Initialize Firebase app (only once)
 const app = initializeApp(firebaseConfig);
@@ -28,5 +36,6 @@ const app = initializeApp(firebaseConfig);
 // Export Firestore and Storage
 export const db = getFirestore(app);
 export const storage = getStorage(app);
+export const auth = getAuth(app);
 
 export default app;
