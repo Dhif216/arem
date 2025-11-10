@@ -19,13 +19,21 @@
     <!-- Favicon -->
     <link rel="icon" type="image/png" href="/vite.png" />
 
+  <!-- Preload critical resources -->
+  <link rel="preload" href="/media/og.avif" as="image" type="image/avif" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin />
+  <link rel="dns-prefetch" href="https://www.googletagmanager.com" />
+
   <!-- Open Graph / Facebook -->
   <meta property="og:locale" content="ar_TN" />
   <meta property="og:title" content="حلويات شابي | حلويات تونسية تقليدية في سوسة" />
   <meta property="og:description" content="مقروض، بقلاوة، زلابية، صمصة وغريبة طازجة يومياً من حلويات شابي في سوسة. طلب سريع عبر واتساب." />
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://sweetchebbi.com" />
-    <meta property="og:image" content="https://sweetchebbi.com/assets/og-image.jpg" />
+    <meta property="og:image" content="https://sweetchebbi.com/media/og.avif" />
+  <meta property="og:image:type" content="image/avif" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
   <meta property="og:image:alt" content="حلويات تونسية متنوعة" />
   <meta property="og:site_name" content="حلويات شابي" />
 
@@ -33,7 +41,7 @@
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="حلويات شابي | حلويات تونسية في سوسة" />
   <meta name="twitter:description" content="توصيل حلويات تونسية: مقروض، بقلاوة، زلابية، صمصة، غريبة - اطلب الآن عبر واتساب." />
-  <meta name="twitter:image" content="https://sweetchebbi.com/assets/og-image.jpg" />
+  <meta name="twitter:image" content="https://sweetchebbi.com/media/og.avif" />
   <meta name="twitter:image:alt" content="حلويات تونسية" />
 
   <!-- Canonical & Alternate -->
@@ -44,6 +52,9 @@
 
     <!-- Site manifest / theme color (optional) -->
     <meta name="theme-color" content="#f9c74f" />
+
+    <!-- Resource hints for faster loading -->
+    <link rel="preconnect" href="https://wa.me" crossorigin />
 
     <!-- Start Single Page Apps for GitHub Pages -->
     <script type="text/javascript">
@@ -76,7 +87,7 @@
       "@context": "https://schema.org",
       "@type": "Bakery",
       "name": "حلويات شابي",
-      "image": "https://sweetchebbi.com/assets/og-image.jpg",
+      "image": "https://sweetchebbi.com/media/og.avif",
       "@id": "https://sweetchebbi.com#bakery",
       "url": "https://sweetchebbi.com",
       "telephone": "+21654477309",
@@ -99,8 +110,10 @@
     </script>
 
     <!-- Styles and Scripts -->
-    <script type="module" crossorigin src="/assets/js/index-BTzWkTZZ.js"></script>
-    <link rel="stylesheet" crossorigin href="/assets/index-CHn7h-NE.css">
+    <script type="module" crossorigin src="/assets/js/index-BVq1oAtM.js"></script>
+    <link rel="modulepreload" crossorigin href="/assets/js/react-vendor-vHFqOcpy.js">
+    <link rel="modulepreload" crossorigin href="/assets/js/i18n-vendor-DhajmtLs.js">
+    <link rel="stylesheet" crossorigin href="/assets/index-C8jH5Dte.css">
   </head>
   <body>
     <div id="root"></div>
