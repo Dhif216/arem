@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import './Home.css'; 
@@ -37,6 +37,19 @@ const Home: React.FC = () => {
     };
     v.addEventListener('loadeddata', onLoaded);
     return () => v.removeEventListener('loadeddata', onLoaded);
+  }, []);
+
+  // Firebase featured products subscription
+  const [featured, setFeatured] = useState<any[]>([]);
+  useEffect(() => {
+    // Lazy import to avoid initial bundle weight
+    import('../services/productsService').then(mod => {
+      const unsub = mod.subscribeActiveProducts(items => {
+        const onlyFeatured = items.filter(p => p.featured).slice(0,3);
+        setFeatured(onlyFeatured);
+      });
+      return () => unsub();
+    });
   }, []);
 
   return (
@@ -84,41 +97,49 @@ const Home: React.FC = () => {
         </div>
       </section>
 
-      {/* 2. Featured Products Section */}
+      {/* 2. Featured Products Section (Dynamic from Firebase if available) */}
       <section className="featured-products">
         <h2>{t('home.featured_heading')}</h2>
         <div className="product-grid">
-          
-          {/* Product Card 1: Ka'ak Warka */}
-          <div className="product-card">
-            <div className="product-image">
-              <img src={AssetUrls.kaakWarka} alt={t('products.product_kaak_warka_name')} loading="lazy" />
-            </div>
-            <h3>{t('products.product_kaak_warka_name')}</h3>
-            <p className="description">{t('products.product_kaak_warka_desc')}</p>
-            <Link to="/products/kaak-warka" className="product-link">{t('home.discover_cta')}</Link>
-          </div>
-          
-          {/* Product Card 2: Baklawa */}
-          <div className="product-card">
-            <div className="product-image">
-              <img src={AssetUrls.baklawa} alt={t('products.product_baklawa_name')} loading="lazy" />
-            </div>
-            <h3>{t('products.product_baklawa_name')}</h3>
-            <p className="description">{t('products.product_baklawa_desc')}</p>
-            <Link to="/products/baklawa" className="product-link">{t('home.discover_cta')}</Link>
-          </div>
-          
-          {/* Product Card 3: Makroudh */}
-          <div className="product-card">
-            <div className="product-image">
-              <img src={AssetUrls.makroudh} alt={t('products.product_makroudh_name')} loading="lazy" />
-            </div>
-            <h3>{t('products.product_makroudh_name')}</h3>
-            <p className="description">{t('products.product_makroudh_desc')}</p>
-            <Link to="/products/makroudh" className="product-link">{t('home.discover_cta')}</Link>
-          </div>
-
+          {featured.length > 0 ? (
+            featured.map(p => (
+              <div className="product-card" key={p.id}>
+                <div className="product-image">
+                  <img src={p.image} alt={p.name_fr} loading="lazy" />
+                </div>
+                <h3>{p.name_fr}</h3>
+                <p className="description">{p.desc_fr?.slice(0,120)}{p.desc_fr && p.desc_fr.length>120 ? '…' : ''}</p>
+                <Link to={`/products/${p.slug}`} className="product-link">{t('home.discover_cta')}</Link>
+              </div>
+            ))
+          ) : (
+            <>
+              <div className="product-card">
+                <div className="product-image">
+                  <img src={AssetUrls.kaakWarka} alt={t('products.product_kaak_warka_name')} loading="lazy" />
+                </div>
+                <h3>{t('products.product_kaak_warka_name')}</h3>
+                <p className="description">{t('products.product_kaak_warka_desc')}</p>
+                <Link to="/products/kaak-warka" className="product-link">{t('home.discover_cta')}</Link>
+              </div>
+              <div className="product-card">
+                <div className="product-image">
+                  <img src={AssetUrls.baklawa} alt={t('products.product_baklawa_name')} loading="lazy" />
+                </div>
+                <h3>{t('products.product_baklawa_name')}</h3>
+                <p className="description">{t('products.product_baklawa_desc')}</p>
+                <Link to="/products/baklawa" className="product-link">{t('home.discover_cta')}</Link>
+              </div>
+              <div className="product-card">
+                <div className="product-image">
+                  <img src={AssetUrls.makroudh} alt={t('products.product_makroudh_name')} loading="lazy" />
+                </div>
+                <h3>{t('products.product_makroudh_name')}</h3>
+                <p className="description">{t('products.product_makroudh_desc')}</p>
+                <Link to="/products/makroudh" className="product-link">{t('home.discover_cta')}</Link>
+              </div>
+            </>
+          )}
         </div>
       </section>
       

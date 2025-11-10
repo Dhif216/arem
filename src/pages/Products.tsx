@@ -4,53 +4,55 @@ import { Link } from 'react-router-dom';
 import { MOCK_PRODUCTS } from '../data/products';
 import type { Product } from '../data/products';
 import './Products.css';
+import { subscribeActiveProducts } from '../services/productsService';
+import type { FirestoreProduct } from '../services/productsService';
 
 // Admin product interface (from AdminDashboard)
-interface AdminProduct {
-  id: string;
-  name: {
-    fr: string;
-    tn: string;
-  };
-  description: {
-    fr: string;
-    tn: string;
-  };
+// (Legacy admin product interface removed; Firestore schema now used.)
+
+type UIProduct = {
+  id: string | number;
+  slug: string;
+  category: Product['category'];
   price: number;
-  category: string;
   image: string;
-  featured?: boolean;
-}
+  name_fr?: string;
+  name_tn?: string;
+  desc_fr?: string;
+  desc_tn?: string;
+  isFirebase?: boolean;
+  nameKey?: string;
+  descriptionKey?: string;
+};
 
 const Products: React.FC = () => {
   const { t, i18n } = useTranslation();
   const currentLang = i18n.language;
   const [activeCategory, setActiveCategory] = useState<'all' | Product['category']>('all');
-  const [products, setProducts] = useState<Product[]>(MOCK_PRODUCTS);
+  const [products, setProducts] = useState<UIProduct[]>(MOCK_PRODUCTS as any);
 
-  // Load products from localStorage if admin has made changes
+  // Subscribe to Firebase products; fallback to mocked if none
   useEffect(() => {
-    const savedProducts = localStorage.getItem('products');
-    if (savedProducts) {
-      try {
-        const adminProducts: AdminProduct[] = JSON.parse(savedProducts);
-        // Convert admin products to display format
-        const convertedProducts: Product[] = adminProducts.map(p => ({
-          id: parseInt(p.id.replace('product-', '')) || Math.floor(Math.random() * 10000),
-          slug: p.id,
-          category: p.category as Product['category'],
+    const unsub = subscribeActiveProducts((items: FirestoreProduct[]) => {
+      if (items && items.length > 0) {
+        const mapped: UIProduct[] = items.map(p => ({
+          id: p.id!,
+          slug: p.slug,
+          category: (p.category as Product['category']) || 'other',
           price: p.price,
           image: p.image,
-          nameKey: p.id, // Use id as key for custom products
-          descriptionKey: p.id + '_desc',
-          name: p.name, // Store actual names for custom products
-          description: p.description
-        })) as Product[];
-        setProducts(convertedProducts);
-      } catch (e) {
-        console.error('Error loading products from localStorage:', e);
+          name_fr: p.name_fr,
+          name_tn: p.name_tn,
+          desc_fr: p.desc_fr,
+          desc_tn: p.desc_tn,
+          isFirebase: true,
+        }));
+        setProducts(mapped);
+      } else {
+        setProducts(MOCK_PRODUCTS as any);
       }
-    }
+    });
+    return () => unsub();
   }, []);
 
   const filteredProducts = useMemo(() => {
@@ -60,14 +62,13 @@ const Products: React.FC = () => {
 
   const categories: Array<'all' | Product['category']> = ['all', 'honeyed', 'dry', 'seasonal'];
 
-  const ProductCard: React.FC<{ product: Product & { name?: any, description?: any } }> = ({ product }) => {
-    // For custom admin products, use the name object; for default products use translation keys
-    const productName = product.name 
-      ? (currentLang === 'tn' ? product.name.tn : product.name.fr)
+  const ProductCard: React.FC<{ product: UIProduct }> = ({ product }) => {
+    const productName = product.isFirebase
+      ? (currentLang === 'tn' ? (product.name_tn || product.name_fr) : (product.name_fr || product.name_tn))
       : t(`products.${product.nameKey}`);
-    
-    const productDesc = product.description
-      ? (currentLang === 'tn' ? product.description.tn : product.description.fr)
+
+    const productDesc = product.isFirebase
+      ? (currentLang === 'tn' ? (product.desc_tn || product.desc_fr) : (product.desc_fr || product.desc_tn))
       : t(`products.${product.descriptionKey}`);
 
     return (

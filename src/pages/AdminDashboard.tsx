@@ -2,26 +2,19 @@ import { useState, useEffect } from 'react';
 import type { FormEvent } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './AdminDashboard.css';
-
-interface Product {
-  id: string;
-  name: {
-    fr: string;
-    tn: string;
-  };
-  description: {
-    fr: string;
-    tn: string;
-  };
-  price: number;
-  category: string;
-  image: string;
-  featured?: boolean;
-}
+import {
+  createProduct,
+  updateProductById,
+  deleteProductById,
+  subscribeAllProducts,
+  uploadProductImage,
+  slugify,
+} from '../services/productsService';
+import type { FirestoreProduct, Category } from '../services/productsService';
 
 const AdminDashboard = () => {
-  const [products, setProducts] = useState<Product[]>([]);
-  const [editingProduct, setEditingProduct] = useState<Product | null>(null);
+  const [products, setProducts] = useState<FirestoreProduct[]>([]);
+  const [editingProduct, setEditingProduct] = useState<FirestoreProduct | null>(null);
   const [showForm, setShowForm] = useState(false);
   const navigate = useNavigate();
 
@@ -32,41 +25,17 @@ const AdminDashboard = () => {
     descriptionFr: '',
     descriptionTn: '',
     price: '',
-    category: 'makroud',
+  category: 'honeyed' as Category,
     image: '',
     featured: false
   });
 
   useEffect(() => {
-    loadProducts();
+    const unsub = subscribeAllProducts((items) => setProducts(items));
+    return () => unsub();
   }, []);
 
-  const loadProducts = () => {
-    const savedProducts = localStorage.getItem('products');
-    if (savedProducts) {
-      setProducts(JSON.parse(savedProducts));
-    } else {
-      // Load default products from products.ts
-      import('../data/products').then((module) => {
-        const defaultProducts = module.MOCK_PRODUCTS.map(p => ({
-          id: p.slug,
-          name: { fr: p.nameKey, tn: p.nameKey },
-          description: { fr: p.descriptionKey, tn: p.descriptionKey },
-          price: p.price,
-          category: p.category,
-          image: p.image,
-          featured: false
-        }));
-        setProducts(defaultProducts);
-        localStorage.setItem('products', JSON.stringify(defaultProducts));
-      });
-    }
-  };
-
-  const saveProducts = (updatedProducts: Product[]) => {
-    localStorage.setItem('products', JSON.stringify(updatedProducts));
-    setProducts(updatedProducts);
-  };
+  // Firestore handles persistence; no local saveProducts needed now.
 
   const handleLogout = () => {
     localStorage.removeItem('adminAuth');
@@ -74,57 +43,50 @@ const AdminDashboard = () => {
     navigate('/admin/login');
   };
 
-  const handleSubmit = (e: FormEvent) => {
+  const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
-
-    const newProduct: Product = {
-      id: editingProduct?.id || `product-${Date.now()}`,
-      name: {
-        fr: formData.nameFr,
-        tn: formData.nameTn
-      },
-      description: {
-        fr: formData.descriptionFr,
-        tn: formData.descriptionTn
-      },
+    const payload: Omit<FirestoreProduct, 'id' | 'active'> = {
+      slug: slugify(formData.nameFr || `produit-${Date.now()}`),
+      category: formData.category as Category,
       price: parseFloat(formData.price),
-      category: formData.category,
       image: formData.image,
-      featured: formData.featured
+      name_fr: formData.nameFr,
+      name_tn: formData.nameTn,
+      desc_fr: formData.descriptionFr,
+      desc_tn: formData.descriptionTn,
+      featured: formData.featured,
     };
-
-    let updatedProducts: Product[];
-    if (editingProduct) {
-      // Update existing product
-      updatedProducts = products.map(p => p.id === editingProduct.id ? newProduct : p);
-    } else {
-      // Add new product
-      updatedProducts = [...products, newProduct];
+    try {
+      if (editingProduct?.id) {
+        await updateProductById(editingProduct.id, payload);
+      } else {
+        await createProduct(payload);
+      }
+      resetForm();
+    } catch (err) {
+      alert('Erreur lors de l\'enregistrement du produit');
     }
-
-    saveProducts(updatedProducts);
-    resetForm();
   };
 
-  const handleEdit = (product: Product) => {
+  const handleEdit = (product: FirestoreProduct) => {
     setEditingProduct(product);
     setFormData({
-      nameFr: product.name.fr,
-      nameTn: product.name.tn,
-      descriptionFr: product.description.fr,
-      descriptionTn: product.description.tn,
+      nameFr: product.name_fr,
+      nameTn: product.name_tn,
+      descriptionFr: product.desc_fr,
+      descriptionTn: product.desc_tn,
       price: product.price.toString(),
-      category: product.category,
+      category: product.category as Category,
       image: product.image,
       featured: product.featured || false
     });
     setShowForm(true);
   };
 
-  const handleDelete = (id: string) => {
+  const handleDelete = (id?: string) => {
+    if (!id) return;
     if (confirm('Êtes-vous sûr de vouloir supprimer ce produit?')) {
-      const updatedProducts = products.filter(p => p.id !== id);
-      saveProducts(updatedProducts);
+      deleteProductById(id);
     }
   };
 
@@ -135,7 +97,7 @@ const AdminDashboard = () => {
       descriptionFr: '',
       descriptionTn: '',
       price: '',
-      category: 'makroud',
+  category: 'honeyed' as Category,
       image: '',
       featured: false
     });
@@ -236,14 +198,13 @@ const AdminDashboard = () => {
                   <label>Catégorie *</label>
                   <select
                     value={formData.category}
-                    onChange={(e) => setFormData({...formData, category: e.target.value})}
+                    onChange={(e) => setFormData({...formData, category: e.target.value as Category})}
                     required
                   >
-                    <option value="makroud">Makroud</option>
-                    <option value="baklava">Baklava</option>
-                    <option value="zlabia">Zlabia</option>
-                    <option value="kaak">Kaak</option>
-                    <option value="autres">Autres</option>
+                    <option value="honeyed">Honeyed</option>
+                    <option value="dry">Dry</option>
+                    <option value="seasonal">Seasonal</option>
+                    <option value="other">Other</option>
                   </select>
                 </div>
               </div>
@@ -273,15 +234,15 @@ const AdminDashboard = () => {
                     type="file"
                     accept="image/*"
                     style={{ display: 'none' }}
-                    onChange={(e) => {
+                    onChange={async (e) => {
                       const file = e.target.files?.[0];
                       if (file) {
-                        // Convert to base64
-                        const reader = new FileReader();
-                        reader.onloadend = () => {
-                          setFormData({...formData, image: reader.result as string});
-                        };
-                        reader.readAsDataURL(file);
+                        try {
+                          const url = await uploadProductImage(file);
+                          setFormData({...formData, image: url});
+                        } catch (err) {
+                          alert('Erreur lors du téléversement de l\'image');
+                        }
                       }
                     }}
                   />
@@ -343,12 +304,12 @@ const AdminDashboard = () => {
                   products.map((product) => (
                     <tr key={product.id}>
                       <td>
-                        <img src={product.image} alt={product.name.fr} className="product-thumb" />
+                        <img src={product.image} alt={product.name_fr} className="product-thumb" />
                       </td>
                       <td>
                         <div className="product-names">
-                          <div>{product.name.fr}</div>
-                          <div className="product-name-ar">{product.name.tn}</div>
+                          <div>{product.name_fr}</div>
+                          <div className="product-name-ar">{product.name_tn}</div>
                         </div>
                       </td>
                       <td><span className="category-badge">{product.category}</span></td>
