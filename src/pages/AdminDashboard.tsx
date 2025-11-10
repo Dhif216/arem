@@ -22,6 +22,7 @@ const AdminDashboard = () => {
   const [saving, setSaving] = useState(false);
   const [uploadingImage, setUploadingImage] = useState(false);
   const [statusMessage, setStatusMessage] = useState<{type: 'success' | 'error', text: string} | null>(null);
+  const [error, setError] = useState<string>('');
   const navigate = useNavigate();
 
   // Form state
@@ -38,17 +39,27 @@ const AdminDashboard = () => {
 
   useEffect(() => {
     // Try to ensure Firebase authenticated context (helps with Storage rules)
-    signInAnonymously(auth).catch(() => {/* optional: anonymous auth may be disabled */});
+    signInAnonymously(auth).catch((authErr) => {
+      console.warn('Anonymous auth failed (may be disabled):', authErr);
+    });
 
     // Subscribe to all products (including inactive for admin visibility)
     setLoadingProducts(true);
-    const unsub = subscribeAllProducts((items) => {
-      setProducts(items);
+    setError('');
+    try {
+      const unsub = subscribeAllProducts((items) => {
+        console.log('Received products from Firestore:', items.length);
+        setProducts(items);
+        setLoadingProducts(false);
+      });
+      return () => {
+        unsub();
+      };
+    } catch (err) {
+      console.error('Failed to subscribe to products:', err);
+      setError('Impossible de charger les produits. Vérifiez la console.');
       setLoadingProducts(false);
-    });
-    return () => {
-      unsub();
-    };
+    }
   }, []);
 
   // Firestore handles persistence; no local saveProducts needed now.
@@ -277,17 +288,32 @@ const AdminDashboard = () => {
                     onChange={async (e) => {
                       const file = e.target.files?.[0];
                       if (file) {
+                        // Validate file is an image
+                        if (!file.type.startsWith('image/')) {
+                          setStatusMessage({type: 'error', text: 'Veuillez sélectionner un fichier image valide'});
+                          return;
+                        }
+                        // Validate file size (max 5MB)
+                        if (file.size > 5 * 1024 * 1024) {
+                          setStatusMessage({type: 'error', text: 'Image trop grande. Maximum 5MB.'});
+                          return;
+                        }
                         setUploadingImage(true);
                         setStatusMessage(null);
                         try {
+                          console.log('Uploading image:', file.name, file.type, file.size);
                           const url = await uploadProductImage(file);
+                          console.log('Image uploaded, URL:', url);
                           setFormData({...formData, image: url});
                           setStatusMessage({type: 'success', text: 'Image téléversée avec succès!'});
                           setTimeout(() => setStatusMessage(null), 3000);
                         } catch (err) {
-                          setStatusMessage({type: 'error', text: 'Erreur lors du téléversement de l\'image'});
+                          console.error('Upload error:', err);
+                          setStatusMessage({type: 'error', text: `Erreur: ${err instanceof Error ? err.message : 'Téléversement échoué'}`});
                         } finally {
                           setUploadingImage(false);
+                          // Reset input so same file can be selected again
+                          e.target.value = '';
                         }
                       }
                     }}
@@ -327,6 +353,12 @@ const AdminDashboard = () => {
 
         <div className="products-list">
           <h2>Liste des produits</h2>
+          
+          {error && (
+            <div className="status-message error">
+              {error}
+            </div>
+          )}
           
           {statusMessage && !showForm && (
             <div className={`status-message ${statusMessage.type}`}>
